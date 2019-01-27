@@ -1,7 +1,13 @@
-- name: Super awesome project
-  link: github.com/sproogen
-  github: sproogen/resume-theme
-  quote: >
-    This is probably one of the greatest apps ever created, if you don't agree you're probably wrong.
+- name: eddy
+  link: github.com/richteague/eddy
+  github: richteague/eddy
   description: | # this will include new lines to allow paragraphs
-    I started this project as a way if learning <mark>React</mark> and it has since grown into a fully fledged app. I have learned many skills through this and been I'm very proud of having this in my portfolio. If you don't have a project as awesome as this I would advise you make one.
+    A suite of tools written in Python to extract kinematical information from spectrally resolved line emission in protoplanetary disks. <mark>eddy</mark> has been used to [infer the presence of unseen planets](https://public.nrao.edu/news/2018-alma-proto-trio/) and make the first confirmation of [grain trapping in pressure maxima](https://ui.adsabs.harvard.edu/#abs/2018ApJ...868..113T/abstract).
+
+- name: bettermoments
+  github: richteague/bettermoments
+  link: github.com/richteague/bettermoments
+  description: | # this will include new lines to allow paragraphs
+    Tired of having to play around with masks and clipping thresholds to get a nice looking rotation or emission map? <mark>betteremoments</mark> is here to help!
+
+    This is a simple package written with [Dan Foreman-Mackey](https://dfm.io/) to quickly make moment maps from position-position-velocity cubes without the need for clipping. And, as a bonus, returns uncertainties! A short artcile about this method used can be found at the [Research Notes of the AAS](https://iopscience.iop.org/article/10.3847/2515-5172/aae265/meta).

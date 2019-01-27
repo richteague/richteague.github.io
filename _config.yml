@@ -16,28 +16,15 @@ about_title: About Me
 about_profile_image: images/profile.jpg
 about_content: | # this will include new lines to allow paragraphs
 
-  I'm an astronomer at the University of Michigan working on understanding planet formation. I work primarily with radio telescopes looking at emission from simple molecules which tell us all about the formation process.
+  I'm an postdoctoral fellow at the University of Michigan working in the group of Prof. Ted Bergin on understanding planet formation. I have previously studied at the Unversity of Edinburgh for my MPhys in Astrophysics, then at MPIA in Heidelberg where I obtained my PhD in Astronomy, supervised by Prof. Thomas Henning and Dr. Dmitry Semenov.
 
-  Testing this...
-
-
-# Projects Section
-projects_title: Projects
-
-# Experience Section
-# experience_title: Experience
-
-# Education Section
-# educaton_title: Education
+  I work primarily with radio observations of simple molecules in protoplanetary disks, the sites of planet formation. I am mostly interested in the dynamics of the gas as this provides a unique way of searching for embedded planets. I also work extensively on inferring the physical and chemical structures of these disks in order to better interpret the dynamical information we extract. My [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ) contains a list of all my publications.
 
 # More Section
-# more_title: A Little More About Me
+more_title: Diversity, Equity and Inclusion
 more_content: | # this will include new lines to allow paragraphs
-  Alongside my interests in networks and software engineering some of my other interests and hobbies are:
-   - Rock climbing
-   - Gaming
-   - Knitting
-   - [Becoming a ninja](https://www.youtube.com/watch?v=vtg4o__aRMg)
+
+  A diverse and inclusive astronomy is important for everyone. I am working as part of the [UMich Astronomy Diversity, Equity and Inclusion committe](https://sites.google.com/umich.edu/astro-dei) to help implement iniatives aimed at creating a more inclusive department. As part of this, I run the monthly DEI journal club, [Equitea](https://sites.google.com/umich.edu/astro-dei/equi-tea) where we discuss recent papers, talks or issues relating to DEI.
 
 # Footer
 footer_show_references: false
