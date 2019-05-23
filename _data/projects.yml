@@ -8,6 +8,6 @@
   github: richteague/bettermoments
   link: github.com/richteague/bettermoments
   description: | # this will include new lines to allow paragraphs
-    Tired of having to play around with masks and clipping thresholds to get a nice looking rotation or emission map? <mark>betteremoments</mark> is here to help!
+    Tired of having to play around with masks and clipping thresholds to get a nice looking rotation or emission map? <mark>bettermoments</mark> is here to help!
 
     This is a simple package written with [Dan Foreman-Mackey](https://dfm.io/) to quickly make moment maps from position-position-velocity cubes without the need for clipping. And, as a bonus, returns uncertainties! A short article about this method used can be found at the [Research Notes of the AAS](https://iopscience.iop.org/article/10.3847/2515-5172/aae265/meta).
