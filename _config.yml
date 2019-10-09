@@ -20,7 +20,8 @@ about_content: | # this will include new lines to allow paragraphs
 
   I work primarily with radio observations of simple molecules in protoplanetary disks. I am mostly interested in the dynamics of the gas as this provides a unique way of searching for embedded planets and understanding the physical processes which are sculting the structures we see in the dust. I also work extensively on inferring the physical and chemical structures of these disks in order to better interpret the dynamical information we extract.
 
-  My [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ) contains a list of all my publications. You can also check out my [CV](https://github.com/richteague/richteague.github.io/blob/master/_includes/CV.pdf).
+  My [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ) contains a list of all my publications, while my [CV](https://nbviewer.jupyter.org/github/richteague/richteague.github.io/blob/master/_includes/CV.pdf) contains more details.
+
 
 # More Section
 more_title: Press Releases
