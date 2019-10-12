@@ -16,7 +16,7 @@ about_title: About Me
 about_profile_image: images/profile.jpg
 about_content: | # this will include new lines to allow paragraphs
 
-  I'm an SMA Fellow at the Harvard-Smithsonian Center for Astrophysics. My research, which is described in more detail below, focusses on understanding the planet formation environment, the protoplanetary disk, and involved processes, using radio observations of simple molecular species.
+  I'm an SMA Fellow at the Harvard-Smithsonian Center for Astrophysics. My research, which is described in more detail below, focusses on understanding the planet formation environment, the protoplanetary disk, and involved processes, using radio observations of simple molecular species. As part of this, I write a lot of code which I try to make open source. Details of the main packages can be found below, or by exploring my [GitHub](https://github.com/richteague).
 
   Before my position at the CfA, I was a postdoctoral researcher at the University of Michigan working in the group of Prof. Ted Bergin. Before that, I studied at the Unversity of Edinburgh for my MPhys in Astrophysics, then at MPIA in Heidelberg where I obtained my PhD in Astronomy, supervised by Prof. Thomas Henning and Dr. Dmitry Semenov.
 
@@ -39,12 +39,16 @@ more_content: | # this will include new lines to allow paragraphs
   <h4>Dynamial Structure of Protoplanetary Disks</h4>
 
   <p>
-    Test
+    Some text here.
   </p>
 
   <br/>
 
   <h4>Molecular Excitation</h4>
+
+  <p>
+    Some more text here.
+  </p>
 
 
 
