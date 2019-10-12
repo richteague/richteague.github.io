@@ -16,15 +16,35 @@ about_title: About Me
 about_profile_image: images/profile.jpg
 about_content: | # this will include new lines to allow paragraphs
 
-  I'm an SMA Fellow at the Harvard-Smithsonian Center for Astrophysics where I work on understanding the planet formation environment, the protoplanetary disk. previous I was a postdoctoral researcher at the University of Michigan working in the group of Prof. Ted Bergin on understanding planet formation. Before that, I studied at the Unversity of Edinburgh for my MPhys in Astrophysics, then at MPIA in Heidelberg where I obtained my PhD in Astronomy, supervised by Prof. Thomas Henning and Dr. Dmitry Semenov.
+  I'm an SMA Fellow at the Harvard-Smithsonian Center for Astrophysics where I work on understanding the planet formation environment, the protoplanetary disk.
 
-  I work primarily with radio observations of simple molecules in protoplanetary disks, the sites of planet formation. I am mostly interested in the dynamics of the gas as this provides a unique way of searching for embedded planets. I also work extensively on inferring the physical and chemical structures of these disks in order to better interpret the dynamical information we extract. My [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ) contains a list of all my publications.
+  Previously, I was a postdoctoral researcher at the University of Michigan working in the group of Prof. Ted Bergin on understanding planet formation. Before that, I studied at the Unversity of Edinburgh for my MPhys in Astrophysics, then at MPIA in Heidelberg where I obtained my PhD in Astronomy, supervised by Prof. Thomas Henning and Dr. Dmitry Semenov.
+
+  I work primarily with radio observations of simple molecules in protoplanetary disks, the sites of planet formation. My [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ) contains a list of all my publications.
 
 # More Section
-more_title: Press Releases
+more_title: Research
 more_content: | # this will include new lines to allow paragraphs
 
-  Some of the work I have lead and been involved in has been featured in various news outlets.
+  My research can be can be broadly broken down into a few major themes, described below.
+
+  <br/>
+
+  <h4>Withnessing the Formation of Planetary Systems</h4>
+
+  <p>
+    If we are to really understand the planet formation process, we must first find the still-forming planets. We have recently made the [first detection of a circumplanetary disk](https://public.nrao.edu/news/2019-alma-circumplanetary/), a disk around a still-forming planet believed to be the source for moons. I am developing methods to understand the limits of what we are able to detect from the gas, by searching for local disturbances in the rotation speed of the gas. This allowed us to [infer the presence of unseen planets](https://public.nrao.edu/news/2018-alma-proto-trio/) in regions of the disk inaccessible to searches made in the dust.
+  </p>
+
+  <h4>Dynamial Structure of Protoplanetary Disks</h4>
+
+  <p>
+    Test
+  </p>
+
+  <br/>
+
+
 
 # Footer
 footer_show_references: false

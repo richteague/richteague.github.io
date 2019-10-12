@@ -12,10 +12,10 @@
   description: | # this will include new lines to allow paragraphs
     Tired of having to play around with masks and clipping thresholds to get a nice looking rotation or emission map? <mark>bettermoments</mark> is here to help!
 
-    This is a simple package written with [Dan Foreman-Mackey](https://dfm.io/) to quickly make moment maps from position-position-velocity cubes without the need for clipping. And, as a bonus, returns uncertainties! A short article about this method used can be found at the [Research Notes of the AAS](https://iopscience.iop.org/article/10.3847/2515-5172/aae265/meta).
+    This is a simple package to quickly make moment maps from position-position-velocity cubes without the need for clipping. And, as a bonus, returns uncertainties! A short article about this method used can be found at the [Research Notes of the AAS](https://iopscience.iop.org/article/10.3847/2515-5172/aae265/meta).
 
 - name: gofish
   github: richteague/gofish
   link: github.com/richteague/gofish
   description: | # this will include new lines to allow paragraphs
-    Exploit the known rotation of a protoplanetary disk to stack emission lines from an annulus to significantly boost the signal to noise of the detection (or to detect the line at all!). The code is described in [this Joss article](https://doi.org/10.21105/joss.01632), and the documentation gives examples of how to use it with your data.
+    Exploit the known rotation of a protoplanetary disk to stack emission lines from an annulus to significantly boost the signal to noise of the detection (or to detect the line at all!). The code is described in [this Joss article](https://doi.org/10.21105/joss.01632), and the documentation gives examples of how to use it with your data. <mark>GoFish</mark< uses mostly <mark>eddy</mark> under the hood, but simplified for searching for molecular lines. 
