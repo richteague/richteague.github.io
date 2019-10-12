@@ -28,26 +28,17 @@ more_content: | # this will include new lines to allow paragraphs
 
   My research can be can be broadly broken down into a few major themes, but all involve the study of protoplanetary disks using primarily sub-mm osbervations.
 
-  ### Withnessing the Formation of Planetary Systems</h4>
+  #### Withnessing the Formation of Planetary Systems
 
   If we are to really understand the planet formation process, we must first find the still-forming planets. We have recently made the [first detection of a circumplanetary disk](https://public.nrao.edu/news/2019-alma-circumplanetary/), a disk around a still-forming planet believed to be the source for moons. However, this approach is only applicable to the inner disk where large, mm sized grains exist. Therefore I am developing methods to understand the limits of what we are able to detect from the gas, by searching for local disturbances in the rotation speed of the gas. This allowed us to [infer the presence of unseen planets in HD 163296](https://public.nrao.edu/news/2018-alma-proto-trio/), a project which we hope will lay the foundations for more detections of still-forming planets.
 
+  #### Dynamial Structure of Protoplanetary Disks
 
-  <br/>
-  <br/>
-  <h4>Dynamial Structure of Protoplanetary Disks</h4>
+  By studying the motions of the gas in the protoplanetary disk, we also can gain unique insights into
 
-  <p>
-    By studying the motions of the gas in the protoplanetary disk, we also can gain unique insights into
-  </p>
+  ##### Molecular Excitation</h4>
 
-  <br/>
-  <br/>
-  <h4>Molecular Excitation</h4>
-
-  <p>
-    Some more text here.
-  </p>
+  Some text here.
 
 
 
