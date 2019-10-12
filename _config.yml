@@ -16,24 +16,24 @@ about_title: About Me
 about_profile_image: images/profile.jpg
 about_content: | # this will include new lines to allow paragraphs
 
-  I'm an SMA Fellow at the Harvard-Smithsonian Center for Astrophysics where I work on understanding the planet formation environment, the protoplanetary disk using radio observations of simple molecular species.
+  I'm an SMA Fellow at the Harvard-Smithsonian Center for Astrophysics. My research, which is described in more detail below, focusses on understanding the planet formation environment, the protoplanetary disk, and involved processes, using radio observations of simple molecular species.
 
-  Previously, I was a postdoctoral researcher at the University of Michigan working in the group of Prof. Ted Bergin on understanding planet formation. Before that, I studied at the Unversity of Edinburgh for my MPhys in Astrophysics, then at MPIA in Heidelberg where I obtained my PhD in Astronomy, supervised by Prof. Thomas Henning and Dr. Dmitry Semenov.
+  Before my position at the CfA, I was a postdoctoral researcher at the University of Michigan working in the group of Prof. Ted Bergin. Before that, I studied at the Unversity of Edinburgh for my MPhys in Astrophysics, then at MPIA in Heidelberg where I obtained my PhD in Astronomy, supervised by Prof. Thomas Henning and Dr. Dmitry Semenov.
 
-  A complete list of my papers can be found in my [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ). For more details, please see my [CV](https://nbviewer.jupyter.org/github/richteague/richteague.github.io/blob/master/_includes/CV.pdf).
-  
+  A complete list of my papers can be found in my [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ) or through my [ORCID](https://orcid.org/0000-0003-1534-5186). For more details, please see my [CV](https://nbviewer.jupyter.org/github/richteague/richteague.github.io/blob/master/_includes/CV.pdf).
+
 # More Section
 more_title: Research
 more_content: | # this will include new lines to allow paragraphs
 
-  My research can be can be broadly broken down into a few major themes, described below.
+  My research can be can be broadly broken down into a few major themes, but all involve the study of protoplanetary disks using primarily sub-mm osbervations.
 
   <br/>
 
   <h4>Withnessing the Formation of Planetary Systems</h4>
 
   <p>
-    If we are to really understand the planet formation process, we must first find the still-forming planets. We have recently made the [first detection of a circumplanetary disk](https://public.nrao.edu/news/2019-alma-circumplanetary/), a disk around a still-forming planet believed to be the source for moons. I am developing methods to understand the limits of what we are able to detect from the gas, by searching for local disturbances in the rotation speed of the gas. This allowed us to [infer the presence of unseen planets](https://public.nrao.edu/news/2018-alma-proto-trio/) in regions of the disk inaccessible to searches made in the dust.
+    If we are to really understand the planet formation process, we must first find the still-forming planets. We have recently made the [first detection of a circumplanetary disk](https://public.nrao.edu/news/2019-alma-circumplanetary/), a disk around a still-forming planet believed to be the source for moons. However, this approach is only applicable to the inner disk where large, mm sized grains exist. Therefore I am developing methods to understand the limits of what we are able to detect from the gas, by searching for local disturbances in the rotation speed of the gas. This allowed us to [infer the presence of unseen planets in HD 163296](https://public.nrao.edu/news/2018-alma-proto-trio/).
   </p>
 
   <h4>Dynamial Structure of Protoplanetary Disks</h4>
@@ -43,6 +43,10 @@ more_content: | # this will include new lines to allow paragraphs
   </p>
 
   <br/>
+
+  <h4>Molecular Excitation</h4>
+
+
 
 
 
