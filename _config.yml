@@ -16,12 +16,12 @@ about_title: About Me
 about_profile_image: images/profile.jpg
 about_content: | # this will include new lines to allow paragraphs
 
-  I'm an SMA Fellow at the Harvard-Smithsonian Center for Astrophysics where I work on understanding the planet formation environment, the protoplanetary disk.
+  I'm an SMA Fellow at the Harvard-Smithsonian Center for Astrophysics where I work on understanding the planet formation environment, the protoplanetary disk using radio observations of simple molecular species.
 
   Previously, I was a postdoctoral researcher at the University of Michigan working in the group of Prof. Ted Bergin on understanding planet formation. Before that, I studied at the Unversity of Edinburgh for my MPhys in Astrophysics, then at MPIA in Heidelberg where I obtained my PhD in Astronomy, supervised by Prof. Thomas Henning and Dr. Dmitry Semenov.
 
-  I work primarily with radio observations of simple molecules in protoplanetary disks, the sites of planet formation. My [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ) contains a list of all my publications.
-
+  A complete list of my papers can be found in my [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ). For more details, please see my [CV](https://nbviewer.jupyter.org/github/richteague/richteague.github.io/blob/master/_includes/CV.pdf).
+  
 # More Section
 more_title: Research
 more_content: | # this will include new lines to allow paragraphs
