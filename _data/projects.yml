@@ -18,4 +18,4 @@
   github: richteague/gofish
   link: github.com/richteague/gofish
   description: | # this will include new lines to allow paragraphs
-    Exploit the known rotation of a protoplanetary disk to stack emission lines from an annulus to significantly boost the signal to noise of the detection (or to detect the line at all!). The code is described in [this Joss article](https://doi.org/10.21105/joss.01632), and the documentation gives examples of how to use it with your data. <mark>GoFish</mark< uses mostly <mark>eddy</mark> under the hood, but simplified for searching for molecular lines.
+    Exploit the known rotation of a protoplanetary disk to stack emission lines from an annulus to significantly boost the signal to noise of the detection (or to detect the line at all!). The code is described in [this Joss article](https://doi.org/10.21105/joss.01632), and the documentation gives examples of how to use it with your data. <mark>GoFish</mark> uses mostly <mark>eddy</mark> under the hood, but simplified for searching for molecular lines.
