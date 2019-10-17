@@ -2,20 +2,22 @@
   link: github.com/richteague/eddy
   github: richteague/eddy
   description: | # this will include new lines to allow paragraphs
-    A suite of tools written in Python to extract kinematical information from spectrally resolved line emission in protoplanetary disks. <mark>eddy</mark> has been used to [infer the presence of unseen planets](https://public.nrao.edu/news/2018-alma-proto-trio/) and make the first confirmation of [grain trapping in pressure maxima](https://ui.adsabs.harvard.edu/#abs/2018ApJ...868..113T/abstract).
+    A suite of tools written in Python to extract kinematical information from spectrally resolved line emission in protoplanetary disks. <mark>eddy</mark> has been used to [infer the presence of unseen planets](https://public.nrao.edu/news/2018-alma-proto-trio/) and make the first confirmation of [grain trapping in pressure maxima](https://ui.adsabs.harvard.edu/#abs/2018ApJ...868..113T/abstract). This currently contains methods to fit Keplerian rotation patterns to first-moment maps including 3D flared surfaces, as well as measuring precise 3D velocities of the gas.
 
-    This currently contains methods to fit Keplerian rotation patterns to first-moment maps including 3D flared surfaces, as well as measuring precise 3D velocities of the gas.
+    The code is described mainly in [this paper](https://ui.adsabs.harvard.edu/abs/2018ApJ...868..113T/abstract).
 
 - name: bettermoments
   github: richteague/bettermoments
   link: github.com/richteague/bettermoments
   description: | # this will include new lines to allow paragraphs
-    Tired of having to play around with masks and clipping thresholds to get a nice looking rotation or emission map? <mark>bettermoments</mark> is here to help!
+    Tired of having to play around with masks and clipping thresholds to get a nice looking rotation or emission map? <mark>bettermoments</mark> is here to help! This is a simple package to quickly make moment maps from position-position-velocity cubes without the need for clipping. And, as a bonus, returns uncertainties!
 
-    This is a simple package to quickly make moment maps from position-position-velocity cubes without the need for clipping. And, as a bonus, returns uncertainties! A short article about this method used can be found at the [Research Notes of the AAS](https://iopscience.iop.org/article/10.3847/2515-5172/aae265/meta).
+    A short article about this method used can be found at the [Research Notes of the AAS](https://iopscience.iop.org/article/10.3847/2515-5172/aae265/meta).
 
 - name: gofish
   github: richteague/gofish
   link: github.com/richteague/gofish
   description: | # this will include new lines to allow paragraphs
-    Exploit the known rotation of a protoplanetary disk to stack emission lines from an annulus to significantly boost the signal to noise of the detection (or to detect the line at all!). The code is described in [this Joss article](https://doi.org/10.21105/joss.01632), and the documentation gives examples of how to use it with your data. <mark>GoFish</mark> uses mostly <mark>eddy</mark> under the hood, but simplified for searching for molecular lines.
+    Exploit the known rotation of a protoplanetary disk to stack emission lines from an annulus to significantly boost the signal to noise of the detection (or to detect the line at all!). This also has the added bonus that we can resample the line profile to better distinguish any deviations from a commonly assumed model.
+
+    The code is described in [this Joss article](https://doi.org/10.21105/joss.01632), while the documentation gives examples of how to use it with your data.
