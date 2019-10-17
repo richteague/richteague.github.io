@@ -24,34 +24,10 @@ about_content: | # this will include new lines to allow paragraphs
   A complete list of my papers can be found in my [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ) or through my [ORCID](https://orcid.org/0000-0003-1534-5186). For more details, please see my [CV](https://nbviewer.jupyter.org/github/richteague/richteague.github.io/blob/master/_includes/CV.pdf).
 
 # More Section
-more_title: Research
+more_title: More
 more_content: | # this will include new lines to allow paragraphs
 
-  My research can be can be broadly broken down into a few major themes, but all involve the study of protoplanetary disks using primarily sub-mm osbervations. My work has also been feature in several press releases, which I have linked to below.
-
-  <br/>
-
-  #### Withnessing the Formation of Planetary Systems
-
-  If we are to really understand the planet formation process, we must first find the still-forming planets. We have recently made the [first detection of a circumplanetary disk](https://public.nrao.edu/news/2019-alma-circumplanetary/), a disk around a still-forming planet believed to be the source for moons. However, this approach is only applicable to the inner disk where large, mm sized grains exist. Therefore I am developing methods to understand the limits of what we are able to detect from the gas, by searching for local disturbances in the rotation speed of the gas. This allowed us to [infer the presence of unseen planets in HD 163296](https://public.nrao.edu/news/2018-alma-proto-trio/), a project which we hope will lay the foundations for more detections of still-forming planets.
-
-  I am organising the [Visualizing the Kinematics of Planet Formation](https://diskdynamics.github.io) workshop where we are brining together astronomers working on this problem to share ideas and techniques and develop a road map to fully exploit this method in the future.
-
-  <br/>
-
-  #### Dynamial Structure of Protoplanetary Disks
-
-  By studying the motions of the gas in the protoplanetary disk, we also can gain unique insights into the physical processes which are present in the disk. In addition to searching for the signs of embedded planets, we can search for hydrodyanamical proccesses which transport material and angular moment throughout the disk. Using a newly developed technique, we have been able to infer [the first 3D velocity map of a disk](https://public.nrao.edu/news/gas-waterfalls-reveal-infant-planets-around-young-star/), confirming the presence of 'meridional flows', demonstrating an efficient way to transport material from the disk atmosphere to the planet-forming midplane.
-
-  I have also spent a lot of time developing methods to measure the strength of turbulence (or lack of) in disks. Turbulence has long been held as the solution for transporting angular momentum through the disk. However, with constraints suggesting that levels are weaker than initially thought, we must move to other scenarios, such as disk winds. Using similar methods described above, I am working on ways to detect low velocity, tenuous winds in the outer disk which may proide a solution to this long standing problem.
-
-  <br/>
-
-  #### Molecular Excitation
-
-  While protoplanetary disks do not show the chemical complexity found in earlier phases of star formation, the molecules which are detected provide a tremendous amount of information about the underlying physical and chemical structures. I am interested in using molecular excitation to infer physical properties of the disk, such as the gas temperature, density or ionization level. By exploiting our astrochemical knowledge, we can use different molecules to trace different regions in the disk and unravel the full structure of the disk. We have used this technique to [trace perturbations in the disk of TW Hya](https://www.mpia.de/henning/press-releases/2017-01-twhydrae-disk), connecting to features observed with the scattered light.
-
-  <br/>
+  Nothing to see here. 
 
 # Footer
 footer_show_references: false
