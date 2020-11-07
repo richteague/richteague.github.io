@@ -4,7 +4,7 @@
   description: | # this will include new lines to allow paragraphs
     A suite of tools written in Python to extract kinematical information from spectrally resolved line emission in protoplanetary disks. <mark>eddy</mark> has been used to [infer the presence of unseen planets](https://public.nrao.edu/news/2018-alma-proto-trio/) and make the first confirmation of [grain trapping in pressure maxima](https://ui.adsabs.harvard.edu/#abs/2018ApJ...868..113T/abstract). This currently contains methods to fit Keplerian rotation patterns to first-moment maps including 3D flared surfaces, as well as measuring precise 3D velocities of the gas.
 
-    \[[`DOCUMENTATION`](https://eddy.readthedocs.io/en/latest/)\] - \[[JOSS](https://ui.adsabs.harvard.edu/abs/2019JOSS....4.1220T/abstract)\]
+    \[[<mark>documentation</mark>](https://eddy.readthedocs.io/en/latest/)\] - \[[JOSS](https://ui.adsabs.harvard.edu/abs/2019JOSS....4.1220T/abstract)\]
 
 - name: bettermoments
   github: richteague/bettermoments
