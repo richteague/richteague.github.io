@@ -4,20 +4,26 @@
   description: | # this will include new lines to allow paragraphs
     A suite of tools written in Python to extract kinematical information from spectrally resolved line emission in protoplanetary disks. <mark>eddy</mark> has been used to [infer the presence of unseen planets](https://public.nrao.edu/news/2018-alma-proto-trio/) and make the first confirmation of [grain trapping in pressure maxima](https://ui.adsabs.harvard.edu/#abs/2018ApJ...868..113T/abstract). This currently contains methods to fit Keplerian rotation patterns to first-moment maps including 3D flared surfaces, as well as measuring precise 3D velocities of the gas.
 
-    The code is described mainly in [this paper](https://ui.adsabs.harvard.edu/abs/2018ApJ...868..113T/abstract).
+    [DOCUMENTATION](https://eddy.readthedocs.io/en/latest/) - [JOSS](https://ui.adsabs.harvard.edu/abs/2019JOSS....4.1220T/abstract)
 
 - name: bettermoments
   github: richteague/bettermoments
   link: github.com/richteague/bettermoments
   description: | # this will include new lines to allow paragraphs
-    Tired of having to play around with masks and clipping thresholds to get a nice looking rotation or emission map? <mark>bettermoments</mark> is here to help! This is a simple package to quickly make moment maps from position-position-velocity cubes without the need for clipping. And, as a bonus, returns uncertainties!
+    Tired of having to play around with masks and clipping thresholds to get a nice looking rotation or emission map? <mark>bettermoments</mark> is here to help! This is a simple package to quickly make moment maps from position-position-velocity cubes without the need for clipping. And, as a bonus, returns uncertainties! This code also includes several additinal methods to collapse the disk and look for perturbations in higher order moments of the data.
 
-    A short article about this method used can be found at the [Research Notes of the AAS](https://iopscience.iop.org/article/10.3847/2515-5172/aae265/meta).
+    [DOCUMENTATION](https://bettermoments.readthedocs.io/en/latest/) - [RNASS](https://ui.adsabs.harvard.edu/abs/2018RNAAS...2..173T/abstract)
 
 - name: gofish
   github: richteague/gofish
   link: github.com/richteague/gofish
   description: | # this will include new lines to allow paragraphs
-    Exploit the known rotation of a protoplanetary disk to stack emission lines from an annulus to significantly boost the signal to noise of the detection (or to detect the line at all!). This also has the added bonus that we can resample the line profile to better distinguish any deviations from a commonly assumed model.
+    Exploit the known rotation of a protoplanetary disk to stack emission lines from an annulus to significantly boost the signal to noise of the detection (or to detect the line at all!). This also has the added bonus that we can resample the line profile to better distinguish any deviations from a commonly assumed model. The method is described mainly in [Teague et al (2018c)](https://ui.adsabs.harvard.edu/abs/2018ApJ...868..113T/abstract), while [Teague et al. (2019a)](https://ui.adsabs.harvard.edu/abs/2019Natur.574..378T/abstract) extends it to 3D velocity structures.
 
-    The code is described in [this Joss article](https://doi.org/10.21105/joss.01632), while the documentation gives examples of how to use it with your data.
+    [DOCUMENTATION](https://fishing.readthedocs.io/en/latest/) - [JOSS](https://ui.adsabs.harvard.edu/abs/2019JOSS....4.1632T/abstract)
+
+- name: diskprojection
+  github: richteague/diskprojection
+  link: github.com/richteague/gofish
+  description: | # this will include new lines to allow paragraphs
+    A Python implementation of the method described in [Pinte et al. (2018)](https://ui.adsabs.harvard.edu/abs/2018A%26A...609A..47P/abstract) to extract the emission surface of molecules from spatially resolved observations. This package includes the base method, and several helper functions to clean up the extracted surface, and to fit analytical profiles to the inferred surface.
