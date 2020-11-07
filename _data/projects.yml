@@ -4,7 +4,7 @@
   description: | # this will include new lines to allow paragraphs
     A suite of tools written in Python to extract kinematical information from spectrally resolved line emission in protoplanetary disks. <mark>eddy</mark> has been used to [infer the presence of unseen planets](https://public.nrao.edu/news/2018-alma-proto-trio/) and make the first confirmation of [grain trapping in pressure maxima](https://ui.adsabs.harvard.edu/#abs/2018ApJ...868..113T/abstract). This currently contains methods to fit Keplerian rotation patterns to first-moment maps including 3D flared surfaces, as well as measuring precise 3D velocities of the gas.
 
-    \[[DOCUMENTATION](https://eddy.readthedocs.io/en/latest/)\] - \[[JOSS](https://ui.adsabs.harvard.edu/abs/2019JOSS....4.1220T/abstract)\]
+    \[[`DOCUMENTATION`](https://eddy.readthedocs.io/en/latest/)\] - \[[JOSS](https://ui.adsabs.harvard.edu/abs/2019JOSS....4.1220T/abstract)\]
 
 - name: bettermoments
   github: richteague/bettermoments
@@ -12,7 +12,7 @@
   description: | # this will include new lines to allow paragraphs
     Tired of having to play around with masks and clipping thresholds to get a nice looking rotation or emission map? <mark>bettermoments</mark> is here to help! This is a simple package to quickly make moment maps from position-position-velocity cubes without the need for clipping. And, as a bonus, returns uncertainties! This code also includes several additinal methods to collapse the disk and look for perturbations in higher order moments of the data.
 
-    \[[DOCUMENTATION](https://bettermoments.readthedocs.io/en/latest/)\] - \[[RNASS](https://ui.adsabs.harvard.edu/abs/2018RNAAS...2..173T/abstract)\]
+    \[[`documentation`](https://bettermoments.readthedocs.io/en/latest/)\] - \[[RNASS](https://ui.adsabs.harvard.edu/abs/2018RNAAS...2..173T/abstract)\]
 
 - name: gofish
   github: richteague/gofish
