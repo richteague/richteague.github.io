@@ -10,3 +10,4 @@ gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
 # Some security stuff.
 gem "kramdown", ">= 2.3.0"
+gem "nokogiri", ">= 1.11.0.rc4"
