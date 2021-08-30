@@ -22,9 +22,9 @@
 
     [<mark>Documentation</mark>](https://fishing.readthedocs.io/en/latest/) // [<mark>JOSS Article</mark>](https://ui.adsabs.harvard.edu/abs/2019JOSS....4.1632T/abstract)
 
-- name: diskprojection
-  github: richteague/diskprojection
-  link: github.com/richteague/diskprojection
+- name: disksurf
+  github: richteague/disksurf
+  link: github.com/richteague/disksurf
   description: | # this will include new lines to allow paragraphs
     A Python implementation of the method described in [Pinte et al. (2018)](https://ui.adsabs.harvard.edu/abs/2018A%26A...609A..47P/abstract) to extract the emission surface of molecules from spatially resolved observations. This package includes the base method, and several helper functions to clean up the extracted surface, and to fit analytical profiles to the inferred surface.
     
