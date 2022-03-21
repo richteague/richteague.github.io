@@ -17,9 +17,11 @@ about_title: About Me
 about_profile_image: images/profile.jpg
 about_content: | # this will include new lines to allow paragraphs
 
-  I'm currently an SMA Fellow at the Harvard-Smithsonian Center for Astrophysics and will be moving to MIT as an Assistant Professor in 2022. My research, which is described in more detail below, focusses on understanding the planet formation environment, the protoplanetary disk, and involved processes, using radio observations of simple molecular species. As part of this, I write a lot of code which I try to make open source. Details of the main packages can be found below, or by exploring my [GitHub](https://github.com/richteague).
+  I'm an SMA Fellow at the Harvard-Smithsonian Center for Astrophysics and will be moving to MIT as an Assistant Professor in 2022. My research, which is described in more detail below, focusses on understanding the planet formation environment, the protoplanetary disk, and involved processes, using radio observations of simple molecular species.
+  I'm currently leading the [exoALMA](https://www.exoalma.com) collaboration, an ambitous ALMA Large Program that is conducting the first sub-mm planet hunting campaign, uniquely designed to detect the younest exoplanets.
+  As part of my research I write a lot of code which I try to make open source. Details of the main packages can be found below, or by exploring my [GitHub](https://github.com/richteague).
 
-  Before my position at the CfA, I was a postdoctoral researcher at the University of Michigan working in the group of Prof. Ted Bergin. Before that, I studied at the Unversity of Edinburgh for my MPhys in Astrophysics, then at MPIA in Heidelberg where I obtained my PhD in Astronomy, supervised by Prof. Thomas Henning and Dr. Dmitry Semenov.
+  # Before my position at the CfA, I was a postdoctoral researcher at the University of Michigan working in the group of Prof. Ted Bergin. Before that, I studied at the Unversity of Edinburgh for my MPhys in Astrophysics, then at MPIA in Heidelberg where I obtained my PhD in Astronomy, supervised by Prof. Thomas Henning and Dr. Dmitry Semenov.
 
   A complete list of my papers can be found in my [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ) or through either my [ORCID](https://orcid.org/0000-0003-1534-5186) or [Google Scholar](https://scholar.google.com/citations?user=I4nDwQwAAAAJ&hl=en) pages. For more details, please see my [CV](https://nbviewer.jupyter.org/github/richteague/richteague.github.io/blob/master/_includes/CV.pdf).
 
