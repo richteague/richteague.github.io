@@ -17,7 +17,7 @@ about_title: About Me
 about_profile_image: images/profile.jpg
 about_content: | # this will include new lines to allow paragraphs
 
-  I'm an SMA Fellow at the Center for Astrophysics | Harvard & Smithsonian and will be moving to MIT as an Assistant Professor in 2022. My research, which is described in more detail below, focusses on understanding the planet formation environment, the protoplanetary disk, and involved processes, using radio observations of simple molecular species.
+  I'm an Assistant Professor at MIT in the Department of Earth, Atmospheric and Planetary Sciences. My research, which is described in more detail below, focusses on understanding the planet formation environment, the protoplanetary disk, and involved processes, using radio observations of simple molecular species.
   I'm currently leading the [exoALMA](https://www.exoalma.com) collaboration, an ambitous ALMA Large Program that is conducting the first sub-mm planet hunting campaign, uniquely designed to detect the younest exoplanets.
   As part of my research I write a lot of code which I try to make open source. Details of the main packages can be found below, or by exploring my [GitHub](https://github.com/richteague).
   A complete list of my papers can be found in my [ADS Library](https://ui.adsabs.harvard.edu/#/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ) or through either my [ORCID](https://orcid.org/0000-0003-1534-5186) or [Google Scholar](https://scholar.google.com/citations?user=I4nDwQwAAAAJ&hl=en) pages. For more details, please see my [CV](https://nbviewer.jupyter.org/github/richteague/richteague.github.io/blob/master/_includes/CV.pdf).
