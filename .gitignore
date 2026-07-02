@@ -1,0 +1,8 @@
+.claude/
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
