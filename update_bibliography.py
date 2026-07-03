@@ -16,7 +16,9 @@ Notes / known limitations (check the diff before committing):
   - Author lists are abbreviated to "Last, F. M." (first author) / "F. M. Last"
     (later authors), truncated to "A, B, C, et al." beyond 3 authors. This is a
     best-effort reproduction of the CV's existing house style, not a byte-exact
-    match for unusual cases (hyphenated names, suffixes, etc).
+    match for unusual cases (hyphenated names, suffixes, etc). ADS sometimes
+    gives names as "F. M. Last" instead of "Last, F. M." (no comma); this is
+    detected and reordered so the surname always ends up first.
   - "R. Teague" (any case/position) is bolded via <strong>, matching the
     existing convention of highlighting your own name in co-author lists.
   - Venue formatting assumes "<Journal>, <volume>, <page>" for refereed work
@@ -24,6 +26,8 @@ Notes / known limitations (check the diff before committing):
     conference proceedings with unusual ADS metadata may need a manual tweak.
   - Ordering: newest first by ADS pubdate, grouped by year, numbered from the
     total count down to 1 (matching the existing numbering scheme).
+  - Each title links to its ADS abstract page
+    (https://ui.adsabs.harvard.edu/abs/<bibcode>/abstract).
 """
 import argparse
 import os
@@ -115,16 +119,24 @@ def normalize_title(title):
     return html_escape_bare_amp(t)
 
 
+def ads_abstract_url(bibcode):
+    url = f"https://ui.adsabs.harvard.edu/abs/{bibcode}/abstract"
+    return url.replace("&", "%26")
+
+
 def abbreviate_given_names(given):
     parts = [p for p in re.split(r"[\s.]+", given.strip()) if p]
     return " ".join(p[0].upper() + "." for p in parts)
 
 
 def format_author(raw, is_first_position):
+    raw = raw.strip()
     if "," in raw:
         last, given = [p.strip() for p in raw.split(",", 1)]
     else:
-        last, given = raw.strip(), ""
+        # ADS occasionally gives "A. B. Surname" instead of "Surname, A. B."
+        parts = raw.split()
+        last, given = (parts[-1], " ".join(parts[:-1])) if len(parts) > 1 else (raw, "")
     initials = abbreviate_given_names(given) if given else ""
     is_self = last.lower() == SELF_SURNAME
     text = f"{last}, {initials}" if is_first_position else f"{initials} {last}".strip()
@@ -203,12 +215,13 @@ def build_section_html(records):
         lines.append('        <div class="publist">')
         for rec in year_records:
             title = normalize_title(rec.get("title"))
+            url = ads_abstract_url(rec.get("bibcode", ""))
             authors = format_authors(rec.get("author"))
             venue = format_venue(rec)
             lines.append('        <div class="pub">')
             lines.append(f'          <div class="pubnum">{num}</div>')
             lines.append('          <div class="pubmain">')
-            lines.append(f'            <div class="pubtitle">{title}</div>')
+            lines.append(f'            <div class="pubtitle"><a href="{url}" target="_blank" rel="noopener">{title}</a></div>')
             lines.append(f'            <div class="pubauthors">{authors}</div>')
             lines.append(f'            <div class="pubvenue">{venue}</div>')
             lines.append("          </div>")
