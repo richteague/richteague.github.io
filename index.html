@@ -9,7 +9,7 @@
 <meta property="og:description" content="Kerr–McGee Development Associate Professor, MIT EAPS.">
 <meta property="og:type" content="profile">
 <meta property="og:url" content="https://richteague.github.io/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23131417'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='52' font-weight='700' fill='%23E8973A' text-anchor='middle'%3ERT%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%2306080F'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='52' font-weight='700' fill='%23E8973A' text-anchor='middle'%3ERT%3C/text%3E%3C/svg%3E">
 <!--
   ================  HOW TO EDIT  ================
   * This is a plain HTML file. Edit any text directly in a text editor,
@@ -23,11 +23,13 @@
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
   :root{
-    /* ---- dark is the default palette; :root[data-theme="light"] overrides below ---- */
-    --accent:#E8973A; --ink:#eeece3; --muted:#9a9fa7;
-    --bg-page:#131417; --bg-sheet:#1c1e22;
-    --text:#d6d3ca; --heading:#f2efe6; --subtitle-c:#b3b7bd;
-    --dim:#9195a0; --dimmer:#8f949c; --authors-strong:#f2efe6;
+    /* ---- dark is the default palette; :root[data-theme="light"] overrides below ----
+       Both palettes are pulled from the Planet Formation Lab site (pfl.mit.edu):
+       dust-400 accent, "space" ink tones for dark, warm paper tones for light. */
+    --accent:#E8973A; --ink:#F4F3EF; --muted:#A9AEBE;
+    --bg-page:#06080F; --bg-sheet:#0B0E18;
+    --text:#F4F3EF; --heading:#F4F3EF; --subtitle-c:#A9AEBE;
+    --dim:#6E7488; --dimmer:#5B6175; --authors-strong:#F4F3EF;
     --shadow:0 1px 2px rgba(0,0,0,.5),0 20px 60px rgba(0,0,0,.6);
     --head:'Spectral', Georgia, serif;
     --body:'Source Serif 4', Georgia, serif;
@@ -45,11 +47,11 @@
   /* PRINT-SYNC: keep in step with the @media print palette below */
   :root[data-theme="light"]{
     --accent:#E8973A;
-    --ink:#091936; --muted:#6a6f78;
-    --bg-page:#efece5; --bg-sheet:#fdfcfa;
-    --text:#23262b; --heading:#1c1f24; --subtitle-c:#565b63;
-    --dim:#8a8f97; --dimmer:#a6abb2; --authors-strong:#1c1f24;
-    --shadow:0 1px 2px rgba(30,30,40,.06),0 18px 50px rgba(30,30,40,.10);
+    --ink:#1A1916; --muted:#585548;
+    --bg-page:#FBFAF7; --bg-sheet:#FFFFFF;
+    --text:#1A1916; --heading:#1A1916; --subtitle-c:#585548;
+    --dim:#7E7B70; --dimmer:#ABA89B; --authors-strong:#1A1916;
+    --shadow:0 1px 2px rgba(10,12,20,.06),0 18px 48px rgba(10,12,20,.16);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -113,10 +115,10 @@
     body{padding:0;}
     .sheet{box-shadow:none;max-width:none;padding:0;}
     :root,:root[data-theme="dark"],:root[data-theme="light"]{
-      --accent:#da673d;--ink:#2a3a52;--muted:#7c8189;
-      --bg-page:#fff;--bg-sheet:#fff;--text:#3d4044;
-      --heading:#373a3e;--subtitle-c:#6a6f76;
-      --dim:#989ca3;--dimmer:#a6abb2;--authors-strong:#373a3e;
+      --accent:#D9762B;--ink:#1A1916;--muted:#585548;
+      --bg-page:#fff;--bg-sheet:#fff;--text:#1A1916;
+      --heading:#1A1916;--subtitle-c:#585548;
+      --dim:#7E7B70;--dimmer:#ABA89B;--authors-strong:#1A1916;
     }
     @page{size:letter;margin:0.7in;}
     section{break-inside:auto;}
