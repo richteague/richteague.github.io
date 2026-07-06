@@ -10,7 +10,7 @@ HTML_FILE="index.html"
 PDF_FILE="teagueCV.pdf"
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 
-"$CHROME" --headless --disable-gpu --no-pdf-header-footer \
+"$CHROME" --headless --disable-gpu --no-sandbox --no-pdf-header-footer \
   --virtual-time-budget=5000 \
   --print-to-pdf="$PDF_FILE" \
   "file://$(pwd)/$HTML_FILE"
