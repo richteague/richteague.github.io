@@ -13,7 +13,7 @@ matching PDF export and a script that syncs the publication list from ADS.
 | `fonts/` | Self-hosted Spectral + Source Serif 4 subsets (Latin only), avoiding a runtime dependency on Google Fonts. |
 | `make-pdf.sh` | Regenerates `teagueCV.pdf` from `index.html` via headless Chrome. |
 | `update_bibliography.py` | Regenerates the "Refereed Publications" section from a NASA/ADS public library. |
-| `.github/workflows/` | CI: rebuilds the PDF on push, refreshes the bibliography monthly. |
+| `.github/workflows/` | CI: rebuilds the PDF on push, refreshes the bibliography weekly. |
 
 ## Editing the CV
 
@@ -56,7 +56,7 @@ Check the diff — author formatting and venue parsing are best-effort (see the
 script's docstring for known edge cases: hyphenated names, unusual venues,
 etc). Then regenerate the PDF and commit.
 
-This also happens automatically once a month — see CI below.
+This also happens automatically once a week — see CI below.
 
 ## CI
 
@@ -65,10 +65,10 @@ Two GitHub Actions workflows:
 - **`build-pdf.yml`** — on every push to `main` that touches `index.html`,
   `fonts/`, or `make-pdf.sh`, rebuilds `teagueCV.pdf` and commits it if it
   changed. Keeps the PDF from ever drifting out of sync with the HTML.
-- **`update-bibliography.yml`** — runs `update_bibliography.py` on the 1st of
-  each month (or on demand via `workflow_dispatch`) and opens a PR with the
-  result, so new papers land within the diff-review the script's docstring
-  recommends rather than needing someone to remember to run it.
+- **`update-bibliography.yml`** — runs `update_bibliography.py` every Monday
+  (or on demand via `workflow_dispatch`) and opens a PR with the result, so
+  new papers land within the diff-review the script's docstring recommends
+  rather than needing someone to remember to run it.
 
 The bibliography workflow needs an `ADS_API_TOKEN` repository secret (Settings
 → Secrets and variables → Actions), and the repo needs "Allow GitHub Actions
