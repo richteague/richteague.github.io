@@ -19,8 +19,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --accent:#273a5b;   /* deep navy — change to taste (#6e2b2b oxblood, #24503a forest, #1f2430 ink) */
-    --ink:#1f2329; --muted:#6a6f78;
+    --accent:#d55222;   /* deep navy — change to taste (#6e2b2b oxblood, #24503a forest, #1f2430 ink) */
+    --ink:#091936; --muted:#6a6f78;
     --head:'Spectral', Georgia, serif;
     --body:'Source Serif 4', Georgia, serif;
 
@@ -44,30 +44,30 @@
   .htop{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;}
   h1{font-family:var(--head);font-size:var(--fs-display);font-weight:var(--w-semibold);margin:0;letter-spacing:-.015em;line-height:1.02;color:#1c1f24;}
   .subtitle{font-size:var(--fs-meta);color:#565b63;margin-top:8px;}
-  .contact{text-align:right;font-size:var(--fs-sm);line-height:1.85;color:var(--muted);}
-  .contact .em{color:var(--accent);}
+  .contact{text-align:right;font-size:var(--fs-sm);line-height:1.25;color:var(--muted);}
+  .contact a{color:inherit;text-decoration:none;}
 
   /* ---- section headings ---- */
   section{margin-top:40px;}
-  h2{font-family:var(--head);font-size:var(--fs-sm);letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0;font-weight:var(--w-semibold);}
+  h2{font-family:var(--head);font-size:var(--fs-sm);letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin:0;font-weight:var(--w-semibold);}
   .rule{height:1.5px;background:var(--accent);margin:6px 0 18px;opacity:.9;}
-  .pubsummary + .entry{margin-top:14px;}
+  .pubsummary + .entry{margin-top:21px;}
 
   /* ---- date / label / entry rows (education, appointments, awards, etc.) ---- */
   .entry{display:grid;grid-template-columns:116px 1fr;gap:22px;margin-bottom:15px;}
   .entry:last-child{margin-bottom:0;}
   .date{font-size:var(--fs-meta);color:var(--accent);font-variant-numeric:tabular-nums;}
   .date .dim{opacity:.6;}
-  .lbl{font-size:var(--fs-meta);color:var(--muted);}
+  .lbl{font-size:var(--fs-meta);color:var(--accent);}
   .role{font-size:var(--fs-body);font-weight:var(--w-semibold);color:var(--ink);}
-  .sub{font-size:var(--fs-meta);color:var(--muted);margin-top:3px;text-wrap:pretty;}
+  .sub{font-size:var(--fs-meta);color:var(--muted);margin-top:1px;line-height:1.25;text-wrap:pretty;}
   .ph{color:var(--accent);opacity:.65;}
   .line{font-size:var(--fs-body);font-weight:var(--w-regular);color:var(--ink);text-wrap:pretty;}
   .line strong{font-weight:var(--w-semibold);}
   .faint{color:var(--muted);font-size:var(--fs-meta);font-weight:var(--w-regular);}
 
   /* ---- publications ---- */
-  .pubsummary{font-size:var(--fs-sm);color:#8a8f97;margin:0 0 6px;font-style:italic;}
+  .pubsummary{font-size:var(--fs-sm);color:#8a8f97;margin:0 0 1em;font-style:italic;}
   .pubgroup{display:grid;grid-template-columns:116px 1fr;gap:22px;margin-top:24px;}
   .year{font-family:var(--head);font-size:var(--fs-year);font-weight:var(--w-semibold);color:var(--accent);line-height:1;}
   .yearcount{font-size:var(--fs-xs);color:#a6abb2;margin-top:5px;letter-spacing:.04em;text-transform:uppercase;}
@@ -83,8 +83,12 @@
 
   /* ---- print ---- */
   @media print{
-    body{background:#fff;padding:0;}
+    body{background:#fff;padding:0;color:#3d4044;}
     .sheet{box-shadow:none;max-width:none;padding:0;}
+    :root{--accent:#da673d;--ink:#2a3a52;--muted:#7c8189;}
+    h1,.pubauthors strong{color:#373a3e;}
+    .subtitle{color:#6a6f76;}
+    .pubvenue{color:#989ca3;}
     @page{size:letter;margin:0.7in;}
     section{break-inside:auto;}
     h2,.rule{break-after:avoid;}
@@ -101,45 +105,32 @@
       <div class="htop">
         <div>
           <h1>Richard&nbsp;Teague</h1>
-          <div class="subtitle">Kerr&ndash;McGee Development Assistant Professor<br>Massachusetts Institute of Technology</div>
+          <div class="subtitle">Kerr&ndash;McGee Development Associate Professor<br>Massachusetts Institute of Technology</div>
         </div>
         <div class="contact">
-          <div class="em"><a href="mailto:rteague@mit.edu">rteague@mit.edu</a></div>
+          <div><a href="mailto:rteague@mit.edu">rteague@mit.edu</a></div>
           <div><a href="https://pfl.mit.edu">pfl.mit.edu</a></div>
           <div>(+1) 617-495-7259</div>
-          <div>Cambridge, Massachusetts</div>
         </div>
       </div>
     </header>
 
     <section>
-      <h2>Education</h2><div class="rule"></div>
-
-      <div class="entry">
-        <div class="date">2013&ndash;2017</div>
-        <div>
-          <div class="role">Ph.D. in Astronomy (Magna Cum Laude) &mdash; Max-Planck-Institute for Astronomy</div>
-          <div class="sub">Heidelberg, Germany</div>
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="date">2008&ndash;2013</div>
-        <div>
-          <div class="role">MPhys Astrophysics (First Class Honours) &mdash; University of Edinburgh</div>
-          <div class="sub">Edinburgh, United Kingdom</div>
-        </div>
-      </div>
-    </section>
-
-    <section>
       <h2>Academic Appointments</h2><div class="rule"></div>
 
       <div class="entry">
-        <div class="date">07/22&ndash;present</div>
+        <div class="date">07/26&ndash;present</div>
+        <div>
+          <div class="role">Kerr&ndash;McGee Development Associate Professor</div>
+          <div class="sub">MIT, Department of Earth, Atmospheric and Planetary Sciences</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">07/22&ndash;06/26</div>
         <div>
           <div class="role">Kerr&ndash;McGee Development Assistant Professor</div>
-          <div class="sub">Massachusetts Institute of Technology &middot; Dept. of Earth, Atmospheric and Planetary Sciences</div>
+          <div class="sub">MIT, Department of Earth, Atmospheric and Planetary Sciences</div>
         </div>
       </div>
 
@@ -177,36 +168,74 @@
     </section>
 
     <section>
+      <h2>Education</h2><div class="rule"></div>
+
+      <div class="entry">
+        <div class="date">2013&ndash;2017</div>
+        <div>
+          <div class="role">Ph.D. in Astronomy (Magna Cum Laude)</div>
+          <div class="sub">Max-Planck-Institute for Astronomy, Heidelberg, Germany</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">2008&ndash;2013</div>
+        <div>
+          <div class="role">MPhys Astrophysics (First Class Honours)</div>
+          <div class="sub">University of Edinburgh, Edinburgh, United Kingdom</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
       <h2>Awards &amp; Honors</h2><div class="rule"></div>
 
       <div class="entry">
         <div class="date">2026</div>
-        <div class="line"><strong>AAS Fred Kavli Plenary Speaker</strong> &mdash; <span class="faint">for pioneering work revealing the 3D kinematic velocity fields within planet-forming disks</span></div>
+        <div>
+          <div class="line"><strong>AAS Fred Kavli Plenary Speaker</strong></div>
+          <div class="sub">For pioneering work revealing the 3D kinematic velocity fields within planet-forming disks</div>
+        </div>
       </div>
 
       <div class="entry">
         <div class="date">2024</div>
-        <div class="line"><strong>EAPS Community Builder Award</strong> &mdash; <span class="faint">recognition of an EAPS community member for exceptional service to EAPS</span></div>
+        <div>
+          <div class="line"><strong>EAPS Community Builder Award</strong></div>
+          <div class="sub">Recognition of an EAPS community member for exceptional service to EAPS</div>
+        </div>
       </div>
 
       <div class="entry">
-        <div class="date">09/22</div>
-        <div class="line"><strong>pH Lectureship</strong> &mdash; <span class="faint">recognizes a CfA scientist who shows exceptional promise early in their career</span></div>
+        <div class="date">2022</div>
+        <div>
+          <div class="line"><strong>pH Lectureship</strong></div>
+          <div class="sub">Recognizes a CfA scientist who shows exceptional promise early in their career</div>
+        </div>
       </div>
 
       <div class="entry">
-        <div class="date">03/20</div>
-        <div class="line"><strong>Harvard Data Science Initiative Research Fund</strong> &mdash; <span class="faint">Regularized Maximum Likelihood Imaging: A New Method for Detecting Planets</span></div>
+        <div class="date">2020</div>
+        <div>
+          <div class="line"><strong>Harvard Data Science Initiative Research Fund</strong></div>
+          <div class="sub">Regularized Maximum Likelihood Imaging: A New Method for Detecting Planets</div>
+        </div>
       </div>
 
       <div class="entry">
-        <div class="date">11/16</div>
-        <div class="line"><strong>Ernst Patzer Award</strong> &mdash; <span class="faint">awarded for the best refereed publication by a young scientist</span></div>
+        <div class="date">2016</div>
+        <div>
+          <div class="line"><strong>Ernst Patzer Award</strong></div>
+          <div class="sub">Awarded for the best refereed publication by a young scientist</div>
+        </div>
       </div>
 
       <div class="entry">
         <div class="date">2010, 2011</div>
-        <div class="line"><strong>Pre-Honours Certificate of Merit</strong> &mdash; <span class="faint">top 5% performance in pre-honours exams, University of Edinburgh</span></div>
+        <div>
+          <div class="line"><strong>Pre-Honours Certificate of Merit</strong></div>
+          <div class="sub">Top 5% performance in pre-honours exams, University of Edinburgh</div>
+        </div>
       </div>
     </section>
 
@@ -272,62 +301,463 @@
     </section>
 
     <section>
-      <h2>Invited Talks &amp; Colloquia (selected)</h2><div class="rule"></div>
-      <p class="pubsummary">60+ invited talks and colloquia since 2015; a selection of recent talks is listed below</p>
+      <h2>Invited Talks &amp; Colloquia</h2><div class="rule"></div>
+      <p class="pubsummary">Talks and colloquia since 2015, reverse chronological</p>
+
+      <div class="entry">
+        <div class="date">06/26</div>
+        <div>
+          <div class="line"><strong>&ldquo;Dynamics of Planet Formation&rdquo;</strong></div>
+          <div class="sub">Perspectictives of Planet and Star Formation</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">04/26</div>
+        <div>
+          <div class="line"><strong>&ldquo;Open Challenges in the Modeling and Interpretation of Protoplanetary Disk Observations&rdquo;</strong></div>
+          <div class="sub">ML4Disks Workshop</div>
+        </div>
+      </div>
 
       <div class="entry">
         <div class="date">03/26</div>
-        <div class="line"><strong>&ldquo;From Pebbles to Planets: New Frontiers in Planet Formation&rdquo;</strong> &mdash; <span class="faint">Caltech GPS Division Seminar</span></div>
+        <div>
+          <div class="line"><strong>&ldquo;From Pebbles to Planets: New Frontiers in Planet Formation&rdquo;</strong></div>
+          <div class="sub">Caltech GPS Division Seminar</div>
+        </div>
       </div>
 
       <div class="entry">
         <div class="date">02/26</div>
-        <div class="line"><strong>&ldquo;Searching for Turbulence: Methods, Limitations and Potential&rdquo;</strong> &mdash; <span class="faint">Flatiron Workshop on Hydrodynamic and Dusty Turbulence in Protoplanetary Disks</span></div>
+        <div>
+          <div class="line"><strong>&ldquo;Searching for Turbulence: Methods, Limitations and Potential&rdquo;</strong></div>
+          <div class="sub">Flatiron Workshop on Hydrodynamic and Dusty Turbulence in Protoplanetary Disks</div>
+        </div>
       </div>
 
       <div class="entry">
         <div class="date">01/26</div>
-        <div class="line"><strong>&ldquo;The Search for Magnetic Fields in Protoplanetary Disks&rdquo;</strong> &mdash; <span class="faint">MPIA &amp; ESO Star and Planet Formation Seminars</span></div>
+        <div>
+          <div class="line"><strong>&ldquo;The Search for Magnetic Fields in Protoplanetary Disks&rdquo;</strong></div>
+          <div class="sub">MPIA Star and Planet Formation Seminar</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">01/26</div>
+        <div>
+          <div class="line"><strong>&ldquo;The Search for Magnetic Fields in Protoplanetary Disks&rdquo;</strong></div>
+          <div class="sub">ESO Star and Planet Formation Seminar</div>
+        </div>
       </div>
 
       <div class="entry">
         <div class="date">05/25</div>
-        <div class="line"><strong>&ldquo;An Overview of the exoALMA Program&rdquo;</strong> &mdash; <span class="faint">COST Action: PLANETS Seminar</span></div>
+        <div>
+          <div class="line"><strong>&ldquo;An Overview of the exoALMA Program&rdquo;</strong></div>
+          <div class="sub">COST Action: PLANETS Seminar</div>
+        </div>
       </div>
 
       <div class="entry">
-        <div class="date">04/25&ndash;03/25</div>
-        <div class="line"><strong>&ldquo;How To Build a Solar System&rdquo;</strong> &mdash; <span class="faint">Johns Hopkins &amp; STScI Joint Colloquium; UC Berkeley Astronomy Colloquium</span></div>
+        <div class="date">04/25</div>
+        <div>
+          <div class="line"><strong>&ldquo;How To Build a Solar System&rdquo;</strong></div>
+          <div class="sub">Johns Hopkins &amp; STScI Joint Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">03/25</div>
+        <div>
+          <div class="line"><strong>&ldquo;How To Build a Solar System&rdquo;</strong></div>
+          <div class="sub">UC Berkeley Astronomy Colloquium</div>
+        </div>
       </div>
 
       <div class="entry">
         <div class="date">06/24</div>
-        <div class="line"><strong>&ldquo;An Interferometric View of the Planet Formation Environment: Past, Present and Future&rdquo;</strong> &mdash; <span class="faint">GRAVITY+: Impact on Star and Planet Formation</span></div>
+        <div>
+          <div class="line"><strong>&ldquo;An Interferometric View of the Planet Formation Environment: Past, Present and Future&rdquo;</strong></div>
+          <div class="sub">GRAVITY+: Impact on Star and Planet Formation</div>
+        </div>
       </div>
 
       <div class="entry">
-        <div class="date">03/24&ndash;02/24</div>
-        <div class="line"><strong>&ldquo;From Pebbles to Planets: What Gas Can Tell Us&rdquo;</strong> &mdash; <span class="faint">McMaster, CITA &amp; Munich Joint Astronomical Colloquia</span></div>
+        <div class="date">03/24</div>
+        <div>
+          <div class="line"><strong>&ldquo;From Pebbles to Planets: What Gas Can Tell Us&rdquo;</strong></div>
+          <div class="sub">McMaster Astronomy Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">03/24</div>
+        <div>
+          <div class="line"><strong>&ldquo;From Pebbles to Planets: What Gas Can Tell Us&rdquo;</strong></div>
+          <div class="sub">Canadian Institute for Theoretical Astrophysics Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">03/24</div>
+        <div>
+          <div class="line"><strong>&ldquo;Molecular Probes of the Planet Formation Environment&rdquo;</strong></div>
+          <div class="sub">Star to Planet Formation Workshop</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">02/24</div>
+        <div>
+          <div class="line"><strong>&ldquo;From Pebbles to Planets: What Gas Can Tell Us&rdquo;</strong></div>
+          <div class="sub">Munich Joint Astronomical Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">02/24</div>
+        <div>
+          <div class="line"><strong>&ldquo;exoALMA: Early Results and Future Outlook&rdquo;</strong></div>
+          <div class="sub">Munich University Astronomy Colloquium</div>
+        </div>
       </div>
 
       <div class="entry">
         <div class="date">12/23</div>
-        <div class="line"><strong>&ldquo;The Dynamical Structure of Planet Forming Disks&rdquo;</strong> &mdash; <span class="faint">ALMA at 10 Years: Past, Present, and Future</span></div>
+        <div>
+          <div class="line"><strong>&ldquo;The Dynamical Structure of Planet Forming Disks&rdquo;</strong></div>
+          <div class="sub">ALMA at 10 Years: Past, Present, and Future</div>
+        </div>
       </div>
 
       <div class="entry">
-        <div class="date">02/23&ndash;06/23</div>
-        <div class="line"><strong>&ldquo;Witnessing the Formation of Giant Planets and their Moons&rdquo;</strong> &mdash; <span class="faint">Gordon Conference on the Origins of Solar Systems; Boston University; MIT Haystack; Ohio State; Harvard EPS Colloquia</span></div>
+        <div class="date">06/23</div>
+        <div>
+          <div class="line"><strong>&ldquo;Witnessing the Formation of Giant Planets and their Moons&rdquo;</strong></div>
+          <div class="sub">Gordon Conference on the Origins of Solar Systems</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">05/23</div>
+        <div>
+          <div class="line"><strong>&ldquo;Witnessing the Earliest Stages of Planet Formation&rdquo;</strong></div>
+          <div class="sub">MATH + X: Planet Formation and Habitability</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">05/23</div>
+        <div>
+          <div class="line"><strong>&ldquo;Witnessing the Formation of Giant Planets and their Moons&rdquo;</strong></div>
+          <div class="sub">Boston University Astrophysics Seminar</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">04/23</div>
+        <div>
+          <div class="line"><strong>&ldquo;Witnessing the Formation of Giant Planets and their Moons&rdquo;</strong></div>
+          <div class="sub">MIT Haystack Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">03/23</div>
+        <div>
+          <div class="line"><strong>&ldquo;Witnessing the Formation of Giant Planets and their Moons&rdquo;</strong></div>
+          <div class="sub">Ohio State University Astronomy Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">02/23</div>
+        <div>
+          <div class="line"><strong>&ldquo;Witnessing the Formation of Giant Planets and their Moons&rdquo;</strong></div>
+          <div class="sub">Harvard University Department of Earth and Planetary Sciences Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">10/22</div>
+        <div>
+          <div class="line"><strong>&ldquo;ALMA&rsquo;s 3D View of Planet Formation&rdquo;</strong></div>
+          <div class="sub">From Clouds to Planets II: The Astrochemical Link</div>
+        </div>
       </div>
 
       <div class="entry">
         <div class="date">09/22</div>
-        <div class="line"><strong>&ldquo;Exploring the Youngest Planetary Systems&rdquo;</strong> &mdash; <span class="faint">Center for Astrophysics | Harvard &amp; Smithsonian pH Lecture</span></div>
+        <div>
+          <div class="line"><strong>&ldquo;Exploring the Youngest Planetary Systems&rdquo;</strong></div>
+          <div class="sub">Center for Astrophysics | Harvard &amp; Smithsonian pH Lecture</div>
+        </div>
       </div>
 
       <div class="entry">
-        <div class="date">2019&ndash;2021</div>
-        <div class="line"><strong>&ldquo;Witnessing the Assembly of Planetary Systems&rdquo; / &ldquo;Mapping the Assembly of Planetary Systems in 6 Dimensions&rdquo;</strong> &mdash; <span class="faint">CfA, Munich, ETH Zurich, Cambridge, McMaster, Caltech &amp; JPL Colloquia</span></div>
+        <div class="date">02/22</div>
+        <div>
+          <div class="line"><strong>&ldquo;Detecting the Youngest Planets&rdquo;</strong></div>
+          <div class="sub">University of Florida Astronomy Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">02/22</div>
+        <div>
+          <div class="line"><strong>&ldquo;Detecting the Youngest Planets&rdquo;</strong></div>
+          <div class="sub">Penn State CEHW Seminar Series</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">11/21</div>
+        <div>
+          <div class="line"><strong>&ldquo;Detecting Molecular Line Polarization in Protoplanetary Disks&rdquo;</strong></div>
+          <div class="sub">Pan-Experiment Galactic Science Group Seminar Series</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">10/21</div>
+        <div>
+          <div class="line"><strong>&ldquo;Mapping the Assembly of Planetary Systems in 6 Dimensions&rdquo;</strong></div>
+          <div class="sub">Munich Joint Astronomical Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">09/21</div>
+        <div>
+          <div class="line"><strong>&ldquo;Mapping the Assembly of Planetary Systems in 6 Dimensions&rdquo;</strong></div>
+          <div class="sub">Center for Astrophysics | Harvard &amp; Smithsonian Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">05/21</div>
+        <div>
+          <div class="line"><strong>&ldquo;Witnessing the Assembly of Planetary Systems&rdquo;</strong></div>
+          <div class="sub">ETH Zurich Exoplanets &amp; Habitability Seminar</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">05/21</div>
+        <div>
+          <div class="line"><strong>&ldquo;Witnessing the Assembly of Planetary Systems&rdquo;</strong></div>
+          <div class="sub">Cambridge Exoplanet Center Seminar</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">04/21</div>
+        <div>
+          <div class="line"><strong>&ldquo;Transforming ALMA into a Planet Hunting Facility&rdquo;</strong></div>
+          <div class="sub">Towards the Comprehensive Characterization of Exoplanets: Science at the Interface of Multiple Measurement Techniques</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">04/21</div>
+        <div>
+          <div class="line"><strong>&ldquo;Witnessing the Assembly of Planetary Systems&rdquo;</strong></div>
+          <div class="sub">McMaster University Astrophysics Seminar</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">03/21</div>
+        <div>
+          <div class="line"><strong>&ldquo;Observations and Observational Predictions&rdquo;</strong></div>
+          <div class="sub">Circumplanetary Disks II</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">02/21</div>
+        <div>
+          <div class="line"><strong>&ldquo;Witnessing the Assembly of Planetary Systems&rdquo;</strong></div>
+          <div class="sub">Max Planck Research Group Selection Symposium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">02/21</div>
+        <div>
+          <div class="line"><strong>&ldquo;Planet Formation in Six Dimensions&rdquo;</strong></div>
+          <div class="sub">Caltech Dix Planetary Science Department Seminar</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">12/20</div>
+        <div>
+          <div class="line"><strong>&ldquo;Observing the Kinematics of Gaseous Substructures&rdquo;</strong></div>
+          <div class="sub">Five Years After HL Tau: A New Era in Planet Formation</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">10/20</div>
+        <div>
+          <div class="line"><strong>&ldquo;Observing the Dynamics of Planet Disk Interactions&rdquo;</strong></div>
+          <div class="sub">Research Unit Transition Disks (RUTD) Conference</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">07/20</div>
+        <div>
+          <div class="line"><strong>&ldquo;Kinematical Detection and Characterizing of Protoplanets with ALMA&rdquo;</strong></div>
+          <div class="sub">Exoplanets III</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">07/20</div>
+        <div>
+          <div class="line"><strong>&ldquo;Visualizing the Assembly of Planetary Systems&rdquo;</strong></div>
+          <div class="sub">MPIA K&ouml;nigstuhl Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">11/19</div>
+        <div>
+          <div class="line"><strong>&ldquo;Witnessing the Dynamics of Planetary Assembly&rdquo;</strong></div>
+          <div class="sub">JPL Astrophysics Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">10/19</div>
+        <div>
+          <div class="line"><strong>&ldquo;Exploiting ALMA&rsquo;s Potential for Planet Hunting&rdquo;</strong></div>
+          <div class="sub">Visualizing the Kinematics of Planet Formation</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">06/19</div>
+        <div>
+          <div class="line"><strong>&ldquo;Unveiling the Dynamics of Planet Formation&rdquo;</strong></div>
+          <div class="sub">Gordon Research Seminar</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">04/19</div>
+        <div>
+          <div class="line"><strong>&ldquo;The Physical Conditions of Planet Formation with Molecular Excitation&rdquo;</strong></div>
+          <div class="sub">IAU Symposium 350: Laboratory Astrophysics</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">03/19</div>
+        <div>
+          <div class="line"><strong>&ldquo;Unveiling the Dynamics of Planet Formation&rdquo;</strong></div>
+          <div class="sub">Planet-Forming Disks</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">10/18</div>
+        <div>
+          <div class="line"><strong>&ldquo;Observing the Kinematics of Planet-Disk Interactions with ALMA&rdquo;</strong></div>
+          <div class="sub">NAOJ Theoretical Astronomy Seminar</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">08/18</div>
+        <div>
+          <div class="line"><strong>&ldquo;Using Kinematics to Search for Embedded Protoplanets&rdquo;</strong></div>
+          <div class="sub">LMU Munich Astronomy Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">08/18</div>
+        <div>
+          <div class="line"><strong>&ldquo;Kinematical Detections of Embedded Protoplanets&rdquo;</strong></div>
+          <div class="sub">University of T&uuml;bingen Astronomy Seminar</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">04/18</div>
+        <div>
+          <div class="line"><strong>&ldquo;The First Kinematic Detection of Embedded Protoplanets&rdquo;</strong></div>
+          <div class="sub">Astrophysical Frontiers in the Next Decade and Beyond</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">02/18</div>
+        <div>
+          <div class="line"><strong>&ldquo;A Spatially Resolved Search for Turbulence in TW Hya&rdquo;</strong></div>
+          <div class="sub">Magnetic Fields or Turbulence</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">11/16</div>
+        <div>
+          <div class="line"><strong>&ldquo;Measuring Turbulence in TW Hya with ALMA: Methods and Limitations&rdquo;</strong></div>
+          <div class="sub">MPIA Patzer Awards Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">11/16</div>
+        <div>
+          <div class="line"><strong>&ldquo;Observing the Earliest Stages of Planet Formation&rdquo;</strong></div>
+          <div class="sub">MPIA K&ouml;nigstuhl Colloquium</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">06/16</div>
+        <div>
+          <div class="line"><strong>&ldquo;Detecting Turbulence in Protoplanetary Disks&rdquo;</strong></div>
+          <div class="sub">Astrochemistry with ALMA Cycle 4</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">04/16</div>
+        <div>
+          <div class="line"><strong>&ldquo;Turbulence in Protoplanetary Disks: Methods and Limitations&rdquo;</strong></div>
+          <div class="sub">Sant-Cugat Forum on Astrophysics</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">03/16</div>
+        <div>
+          <div class="line"><strong>&ldquo;Turbulence in TW Hya&rdquo;</strong></div>
+          <div class="sub">Protoplanetary Discussions</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">01/15</div>
+        <div>
+          <div class="line"><strong>&ldquo;Deuterium Fraction in Protoplanetary Disks&rdquo;</strong></div>
+          <div class="sub">Chemical Diagnostics of Star and Planet Formation</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="date">01/15</div>
+        <div>
+          <div class="line"><strong>&ldquo;Deuterium Fraction in DM Tau&rdquo;</strong></div>
+          <div class="sub">ZAG &ndash; IPAG &ndash; MPIA Workshop on Planet Formation</div>
+        </div>
       </div>
     </section>
 
@@ -337,7 +767,7 @@
       <div class="entry">
         <div class="date">2022&ndash;present</div>
         <div>
-          <div class="role">12.410 &mdash; Observational Techniques for Optical Astronomy</div>
+          <div class="role">12.410 / 8.287: Observational Techniques for Optical Astronomy</div>
           <div class="sub">Instructor</div>
         </div>
       </div>
@@ -345,7 +775,7 @@
       <div class="entry">
         <div class="date">2025&ndash;present</div>
         <div>
-          <div class="role">12.423 &mdash; Planet Formation</div>
+          <div class="role">12.423 / 12.623: Planet Formation</div>
           <div class="sub">Instructor</div>
         </div>
       </div>
@@ -353,7 +783,7 @@
       <div class="entry">
         <div class="date">2024</div>
         <div>
-          <div class="role">12.S681 &mdash; From Grains to Gas Giants: The Formation of Planetary Systems</div>
+          <div class="role">12.S681: From Grains to Gas Giants: The Formation of Planetary Systems</div>
           <div class="sub">Instructor</div>
         </div>
       </div>
@@ -369,25 +799,26 @@
 
     <section>
       <h2>Advising &amp; Mentoring</h2><div class="rule"></div>
+      <p class="pubsummary">All students and postdocs are based at MIT unless otherwise noted</p>
 
       <div class="entry">
-        <div class="lbl">Ph.D. students (MIT)</div>
+        <div class="lbl">Ph.D. students</div>
         <div class="line"><strong>Leah Albrow</strong> <span class="faint">(2024&ndash;present)</span> &middot; <strong>Isabella Macias</strong> <span class="faint">(2024&ndash;present)</span> &middot; <strong>Jensen Pierce Thomas Lawrence</strong> <span class="faint">(2023&ndash;present)</span></div>
       </div>
 
       <div class="entry">
-        <div class="lbl">Masters students</div>
-        <div class="line"><strong>Marco Duraku, Imperial College London</strong> <span class="faint">(2024&ndash;present, MIT&ndash;Imperial Exchange)</span> &middot; <strong>Amius Marshall De&rsquo;Ath, Imperial College London</strong> <span class="faint">(2024&ndash;2025)</span> &middot; <strong>Abigail Colclasure, MIT</strong> <span class="faint">(2024&ndash;2025)</span></div>
+        <div class="lbl">MSc. students</div>
+        <div class="line"><strong>Marco Duraku, Imperial College London</strong> <span class="faint">(2025&ndash;2026, MIT&ndash;Imperial Exchange)</span> &middot; <strong>Amius Marshall De&rsquo;Ath</strong> <span class="faint">(2024&ndash;2025, MIT&ndash;Imperial Exchange)</span> &middot; <strong>Abigail Colclasure</strong> <span class="faint">(2024&ndash;2025)</span></div>
       </div>
 
       <div class="entry">
-        <div class="lbl">Undergraduates (MIT)</div>
-        <div class="line"><strong>Jackson Holland</strong> <span class="faint">(2026&ndash;present)</span> &middot; <strong>Erin Cusson</strong> <span class="faint">(2024&ndash;present)</span> &middot; <strong>Anika Nath</strong> <span class="faint">(2024)</span> &middot; <strong>Carol Chen</strong> <span class="faint">(2022&ndash;2023)</span> &middot; <strong>Aidan van Duzer</strong> <span class="faint">(2023)</span> &middot; <strong>Anna Orgel</strong> <span class="faint">(2022&ndash;2023)</span></div>
+        <div class="lbl">Undergraduates</div>
+        <div class="line"><strong>Headam Im</strong> <span class="faint">(2026&ndash;present)</span> &middot; <strong>Jackson Holland</strong> <span class="faint">(2026)</span> &middot; <strong>Erin Cusson</strong> <span class="faint">(2024&ndash;2026)</span> &middot; <strong>Anika Nath</strong> <span class="faint">(2024)</span> &middot; <strong>Carol Chen</strong> <span class="faint">(2022&ndash;2023)</span> &middot; <strong>Aidan van Duzer</strong> <span class="faint">(2023)</span> &middot; <strong>Anna Orgel</strong> <span class="faint">(2022&ndash;2023)</span></div>
       </div>
 
       <div class="entry">
         <div class="lbl">Academic advisor</div>
-        <div class="line"><strong>Jan Toomlaid</strong> <span class="faint">(2024&ndash;present)</span> &middot; <strong>Kaylee Barrera</strong> <span class="faint">(2023&ndash;present)</span> &middot; <strong>Anika Nath</strong> <span class="faint">(2023&ndash;2025)</span></div>
+        <div class="line"><strong>Lily Jones</strong> <span class="faint">(2026&ndash;present)</span> &middot; <strong>Jan Toomlaid</strong> <span class="faint">(2024&ndash;2026)</span> &middot; <strong>Kaylee Barrera</strong> <span class="faint">(2023&ndash;2026)</span> &middot; <strong>Anika Nath</strong> <span class="faint">(2023&ndash;2025)</span></div>
       </div>
 
       <div class="entry">
@@ -406,12 +837,12 @@
 
       <div class="entry">
         <div class="lbl">Departmental (MIT/EAPS)</div>
-        <div class="line"><strong>EAPS Council, Junior Faculty Representative</strong> <span class="faint">(2025&ndash;present)</span> &middot; <strong>CORE: Community, Outreach and Respect in EAPS</strong> <span class="faint">(2025&ndash;present)</span> &middot; <strong>EAPS Department Lecture Series Planetary Science Representative</strong> <span class="faint">(2025&ndash;present)</span> &middot; <strong>EAPS Committee on the Education Program</strong> <span class="faint">(2023&ndash;2024)</span> &middot; <strong>EAPS Distinguished Postdoctoral Fellowship Committee</strong> <span class="faint">(2022)</span></div>
+        <div class="line"><strong>EAPS Council, Junior Faculty Representative</strong> <span class="faint">(2025&ndash;present)</span> &middot; <strong>CORE: Community, Outreach and Respect in EAPS</strong> <span class="faint">(2025&ndash;present)</span> &middot; <strong>EAPS Department Lecture Series Planetary Science Representative</strong> <span class="faint">(2025&ndash;2026)</span> &middot; <strong>EAPS Committee on the Education Program</strong> <span class="faint">(2023&ndash;2024)</span> &middot; <strong>EAPS Distinguished Postdoctoral Fellowship Committee</strong> <span class="faint">(2022, 2025)</span></div>
       </div>
 
       <div class="entry">
         <div class="lbl">Workshop &amp; conference SOCs</div>
-        <div class="line"><strong>Astrochemistry in the Broadband Era: ngVLA and ALMA WSU</strong> <span class="faint">(2025)</span> &middot; <strong>Spatio-spectral Modeling of ALMA Data Cubes: ALMA-2030</strong> <span class="faint">(2024)</span> &middot; <strong>exoALMA Start of Science Workshop</strong> <span class="faint">(2022)</span> &middot; <strong>Vertical Shear Instability Meeting</strong> <span class="faint">(2022)</span> &middot; <strong>SMA Interferometry School</strong> <span class="faint">(2021)</span> &middot; <strong>Visualizing the Kinematics of Planet Formation, Flatiron Institute</strong> <span class="faint">(2019)</span></div>
+        <div class="line"><strong>Astrochemistry in the Broadband Era: ngVLA and ALMA WSU</strong> <span class="faint">(2025)</span> &middot; <strong>Spatio-spectral Modeling of ALMA Data Cubes: ALMA-2030</strong> <span class="faint">(2024)</span> &middot; <strong>exoALMA Start of Science Workshop</strong> <span class="faint">(2022)</span> &middot; <strong>Vertical Shear Instability Meeting</strong> <span class="faint">(2022)</span> &middot; <strong>SMA Interferometry School</strong> <span class="faint">(2021)</span> &middot; <strong>Visualizing the Kinematics of Planet Formation</strong> <span class="faint">(2019)</span></div>
       </div>
 
       <div class="entry">
@@ -432,7 +863,7 @@
 
     <section>
       <h2>Refereed Publications</h2><div class="rule"></div>
-      <p class="pubsummary">179 refereed articles &middot; 24 as first author &middot; reverse chronological &middot; name in bold</p>
+      <p class="pubsummary">179 refereed articles &middot; 24 as first author &middot; reverse chronological &middot; titles are links to paper</p>
       <div class="pubgroup">
         <div class="yearcol"><div class="year">2026</div><div class="yearcount">20 papers</div></div>
         <div class="publist">

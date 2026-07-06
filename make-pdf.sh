@@ -19,6 +19,7 @@ sed -i '' \
   "$HTML_FILE"
 
 "$CHROME" --headless --disable-gpu --no-pdf-header-footer \
+  --virtual-time-budget=5000 \
   --print-to-pdf="$PDF_FILE" \
   "file://$(pwd)/$HTML_FILE"
 
