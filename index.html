@@ -21,6 +21,10 @@
   :root{
     --accent:#d55222;   /* deep navy — change to taste (#6e2b2b oxblood, #24503a forest, #1f2430 ink) */
     --ink:#091936; --muted:#6a6f78;
+    --bg-page:#efece5; --bg-sheet:#fdfcfa;
+    --text:#23262b; --heading:#1c1f24; --subtitle-c:#565b63;
+    --dim:#8a8f97; --dimmer:#a6abb2; --authors-strong:#1c1f24;
+    --shadow:0 1px 2px rgba(30,30,40,.06),0 18px 50px rgba(30,30,40,.10);
     --head:'Spectral', Georgia, serif;
     --body:'Source Serif 4', Georgia, serif;
 
@@ -34,16 +38,37 @@
     --w-regular:400;
     --w-semibold:600;
   }
+  @media screen and (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --accent:#ee8354; --ink:#eeece3; --muted:#9a9fa7;
+      --bg-page:#131417; --bg-sheet:#1c1e22;
+      --text:#d6d3ca; --heading:#f2efe6; --subtitle-c:#b3b7bd;
+      --dim:#9195a0; --dimmer:#8f949c; --authors-strong:#f2efe6;
+      --shadow:0 1px 2px rgba(0,0,0,.5),0 20px 60px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --accent:#ee8354; --ink:#eeece3; --muted:#9a9fa7;
+    --bg-page:#131417; --bg-sheet:#1c1e22;
+    --text:#d6d3ca; --heading:#f2efe6; --subtitle-c:#b3b7bd;
+    --dim:#9195a0; --dimmer:#8f949c; --authors-strong:#f2efe6;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 20px 60px rgba(0,0,0,.6);
+  }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
-  body{background:#efece5;font-family:var(--body);color:#23262b;-webkit-font-smoothing:antialiased;padding:52px 24px;}
-  .sheet{max-width:872px;margin:0 auto;background:#fdfcfa;box-shadow:0 1px 2px rgba(30,30,40,.06),0 18px 50px rgba(30,30,40,.10);padding:76px 78px 88px;}
+  body{background:var(--bg-page);font-family:var(--body);color:var(--text);-webkit-font-smoothing:antialiased;padding:52px 24px;}
+  .sheet{max-width:872px;margin:0 auto;background:var(--bg-sheet);box-shadow:var(--shadow);padding:76px 78px 88px;position:relative;}
+
+  /* ---- theme toggle ---- */
+  .theme-toggle{position:fixed;top:20px;right:20px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(120,120,120,.35);background:var(--bg-sheet);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;}
+  .theme-toggle:hover{color:var(--accent);}
+  @media print{.theme-toggle{display:none;}}
 
   /* ---- header ---- */
   header{border-bottom:3px double var(--accent);padding-bottom:22px;}
   .htop{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;}
-  h1{font-family:var(--head);font-size:var(--fs-display);font-weight:var(--w-semibold);margin:0;letter-spacing:-.015em;line-height:1.02;color:#1c1f24;}
-  .subtitle{font-size:var(--fs-meta);color:#565b63;margin-top:8px;}
+  h1{font-family:var(--head);font-size:var(--fs-display);font-weight:var(--w-semibold);margin:0;letter-spacing:-.015em;line-height:1.02;color:var(--heading);}
+  .subtitle{font-size:var(--fs-meta);color:var(--subtitle-c);margin-top:8px;}
   .contact{text-align:right;font-size:var(--fs-sm);line-height:1.25;color:var(--muted);}
   .contact a{color:inherit;text-decoration:none;}
 
@@ -67,28 +92,30 @@
   .faint{color:var(--muted);font-size:var(--fs-meta);font-weight:var(--w-regular);}
 
   /* ---- publications ---- */
-  .pubsummary{font-size:var(--fs-sm);color:#8a8f97;margin:0 0 1em;font-style:italic;}
+  .pubsummary{font-size:var(--fs-sm);color:var(--dim);margin:0 0 1em;font-style:italic;}
   .pubgroup{display:grid;grid-template-columns:116px 1fr;gap:22px;margin-top:24px;}
   .year{font-family:var(--head);font-size:var(--fs-year);font-weight:var(--w-semibold);color:var(--accent);line-height:1;}
-  .yearcount{font-size:var(--fs-xs);color:#a6abb2;margin-top:5px;letter-spacing:.04em;text-transform:uppercase;}
+  .yearcount{font-size:var(--fs-xs);color:var(--dimmer);margin-top:5px;letter-spacing:.04em;text-transform:uppercase;}
   .pub{display:flex;gap:13px;margin-bottom:15px;}
   .pubnum{min-width:26px;text-align:right;font-size:var(--fs-xs);color:var(--accent);font-variant-numeric:tabular-nums;padding-top:3px;opacity:.75;}
   .pubmain{flex:1;}
   .pubtitle{font-size:var(--fs-body);font-weight:var(--w-semibold);color:var(--ink);line-height:1.34;text-wrap:pretty;}
   .pubtitle a{color:inherit;text-decoration:none;}
   .pubauthors{font-size:var(--fs-meta);color:var(--muted);margin-top:2px;line-height:1.45;}
-  .pubauthors strong{color:#1c1f24;font-weight:700;}
-  .pubvenue{font-size:var(--fs-sm);color:#8a8f97;margin-top:1px;}
+  .pubauthors strong{color:var(--authors-strong);font-weight:700;}
+  .pubvenue{font-size:var(--fs-sm);color:var(--dim);margin-top:1px;}
   .pubvenue em{color:var(--accent);opacity:.85;}
 
   /* ---- print ---- */
   @media print{
-    body{background:#fff;padding:0;color:#3d4044;}
+    body{padding:0;}
     .sheet{box-shadow:none;max-width:none;padding:0;}
-    :root{--accent:#da673d;--ink:#2a3a52;--muted:#7c8189;}
-    h1,.pubauthors strong{color:#373a3e;}
-    .subtitle{color:#6a6f76;}
-    .pubvenue{color:#989ca3;}
+    :root,:root[data-theme="dark"],:root[data-theme="light"]{
+      --accent:#da673d;--ink:#2a3a52;--muted:#7c8189;
+      --bg-page:#fff;--bg-sheet:#fdfcfa;--text:#3d4044;
+      --heading:#373a3e;--subtitle-c:#6a6f76;
+      --dim:#989ca3;--dimmer:#a6abb2;--authors-strong:#373a3e;
+    }
     @page{size:letter;margin:0.7in;}
     section{break-inside:auto;}
     h2,.rule{break-after:avoid;}
@@ -97,8 +124,17 @@
     .year{break-after:avoid;}
   }
 </style>
+<script>
+  (function(){
+    try{
+      var saved=localStorage.getItem('cv-theme');
+      if(saved)document.documentElement.setAttribute('data-theme',saved);
+    }catch(e){}
+  })();
+</script>
 </head>
 <body>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">&#9788;</button>
   <div class="sheet">
 
     <header>
@@ -2358,5 +2394,26 @@
       </div>
     </section>
 
-  </div></body>
+  </div>
+  <script>
+    (function(){
+      var root=document.documentElement;
+      var btn=document.getElementById('themeToggle');
+      var media=window.matchMedia('(prefers-color-scheme: dark)');
+      function isDark(){
+        var explicit=root.getAttribute('data-theme');
+        if(explicit)return explicit==='dark';
+        return media.matches;
+      }
+      function render(){btn.innerHTML=isDark()?'&#9789;':'&#9788;';}
+      btn.addEventListener('click',function(){
+        var next=isDark()?'light':'dark';
+        root.setAttribute('data-theme',next);
+        try{localStorage.setItem('cv-theme',next);}catch(e){}
+        render();
+      });
+      render();
+    })();
+  </script>
+</body>
 </html>
