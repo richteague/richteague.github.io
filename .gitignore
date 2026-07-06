@@ -1,4 +1,5 @@
-.claude/
+.claude/*
+!.claude/skills/
 
 # OS
 .DS_Store
@@ -10,3 +11,6 @@
 # Python
 __pycache__/
 *.pyc
+
+# Backups written by make-pdf.sh / update_bibliography.py
+*.bak

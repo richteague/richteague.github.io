@@ -72,6 +72,7 @@ def fetch_library_bibcodes(session, library_id):
         resp = session.get(
             f"{ADS_API}/biblib/libraries/{library_id}",
             params={"start": start, "rows": rows},
+            timeout=30,
         )
         if resp.status_code != 200:
             die(f"failed to fetch library {library_id}: {resp.status_code} {resp.text}")
@@ -97,6 +98,7 @@ def fetch_metadata(session, bibcodes):
         resp = session.get(
             f"{ADS_API}/search/query",
             params={"q": query, "fl": FIELDS, "rows": len(chunk)},
+            timeout=30,
         )
         if resp.status_code != 200:
             die(f"search query failed: {resp.status_code} {resp.text}")
@@ -129,7 +131,7 @@ def abbreviate_given_names(given):
     return " ".join(p[0].upper() + "." for p in parts)
 
 
-def format_author(raw, is_first_position):
+def split_author(raw):
     raw = raw.strip()
     if "," in raw:
         last, given = [p.strip() for p in raw.split(",", 1)]
@@ -137,6 +139,11 @@ def format_author(raw, is_first_position):
         # ADS occasionally gives "A. B. Surname" instead of "Surname, A. B."
         parts = raw.split()
         last, given = (parts[-1], " ".join(parts[:-1])) if len(parts) > 1 else (raw, "")
+    return last, given
+
+
+def format_author(raw, is_first_position):
+    last, given = split_author(raw)
     initials = abbreviate_given_names(given) if given else ""
     is_self = last.lower() == SELF_SURNAME
     text = f"{last}, {initials}" if is_first_position else f"{initials} {last}".strip()
@@ -189,7 +196,7 @@ def build_section_html(records):
     records = sorted(records, key=sort_key, reverse=True)
     total = len(records)
     first_author_count = sum(
-        1 for r in records if (r.get("author") or [""])[0].split(",")[0].strip().lower() == SELF_SURNAME
+        1 for r in records if split_author((r.get("author") or [""])[0])[0].lower() == SELF_SURNAME
     )
 
     by_year = defaultdict(list)
@@ -235,10 +242,19 @@ def build_section_html(records):
 
 def replace_section(html, new_section):
     start_marker = '<h2>Refereed Publications</h2>'
-    start = html.index(start_marker)
+    try:
+        start = html.index(start_marker)
+    except ValueError:
+        die(
+            f"could not find '{start_marker}' in {HTML_FILE} — "
+            "has the section heading changed?"
+        )
     # walk back to the start of the line containing the <h2>
     line_start = html.rfind("\n", 0, start) + 1
-    end = html.index("</section>", start)
+    try:
+        end = html.index("</section>", start)
+    except ValueError:
+        die(f"found '{start_marker}' but no closing </section> after it in {HTML_FILE}")
     return html[:line_start] + new_section + "\n    " + html[end:]
 
 

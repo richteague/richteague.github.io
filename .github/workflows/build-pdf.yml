@@ -1,0 +1,41 @@
+name: Build PDF
+
+# Keeps teagueCV.pdf in sync with index.html so the two can never drift.
+# Only triggers on changes that actually affect rendered output, so it
+# won't loop on its own auto-commit.
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - fonts/**
+      - make-pdf.sh
+
+permissions:
+  contents: write
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: browser-actions/setup-chrome@v1
+        id: setup-chrome
+
+      - name: Regenerate PDF
+        env:
+          CHROME: ${{ steps.setup-chrome.outputs.chrome-path }}
+        run: ./make-pdf.sh
+
+      - name: Commit PDF if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add teagueCV.pdf
+          if git diff --cached --quiet; then
+            echo "PDF unchanged, nothing to commit"
+          else
+            git commit -m "Auto-regenerate teagueCV.pdf"
+            git push
+          fi
