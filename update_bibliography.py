@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Regenerate the "Refereed Publications" section of teagueCV.html from a
+Regenerate the "Refereed Publications" section of index.html from a
 NASA/ADS public library.
 
 Requires:
@@ -46,7 +46,7 @@ SELF_SURNAME = "teague"
 FIELDS = "bibcode,title,author,year,pub,volume,page,identifier,pubdate,doctype"
 CHUNK_SIZE = 50
 
-HTML_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "teagueCV.html")
+HTML_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html")
 
 
 def die(msg):
