@@ -19,12 +19,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --accent:#d55222;   /* deep navy — change to taste (#6e2b2b oxblood, #24503a forest, #1f2430 ink) */
-    --ink:#091936; --muted:#6a6f78;
-    --bg-page:#efece5; --bg-sheet:#fdfcfa;
-    --text:#23262b; --heading:#1c1f24; --subtitle-c:#565b63;
-    --dim:#8a8f97; --dimmer:#a6abb2; --authors-strong:#1c1f24;
-    --shadow:0 1px 2px rgba(30,30,40,.06),0 18px 50px rgba(30,30,40,.10);
+    /* ---- dark is the default palette; :root[data-theme="light"] overrides below ---- */
+    --accent:#E8973A; --ink:#eeece3; --muted:#9a9fa7;
+    --bg-page:#131417; --bg-sheet:#1c1e22;
+    --text:#d6d3ca; --heading:#f2efe6; --subtitle-c:#b3b7bd;
+    --dim:#9195a0; --dimmer:#8f949c; --authors-strong:#f2efe6;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 20px 60px rgba(0,0,0,.6);
     --head:'Spectral', Georgia, serif;
     --body:'Source Serif 4', Georgia, serif;
 
@@ -38,21 +38,13 @@
     --w-regular:400;
     --w-semibold:600;
   }
-  @media screen and (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --accent:#ee8354; --ink:#eeece3; --muted:#9a9fa7;
-      --bg-page:#131417; --bg-sheet:#1c1e22;
-      --text:#d6d3ca; --heading:#f2efe6; --subtitle-c:#b3b7bd;
-      --dim:#9195a0; --dimmer:#8f949c; --authors-strong:#f2efe6;
-      --shadow:0 1px 2px rgba(0,0,0,.5),0 20px 60px rgba(0,0,0,.6);
-    }
-  }
-  :root[data-theme="dark"]{
-    --accent:#ee8354; --ink:#eeece3; --muted:#9a9fa7;
-    --bg-page:#131417; --bg-sheet:#1c1e22;
-    --text:#d6d3ca; --heading:#f2efe6; --subtitle-c:#b3b7bd;
-    --dim:#9195a0; --dimmer:#8f949c; --authors-strong:#f2efe6;
-    --shadow:0 1px 2px rgba(0,0,0,.5),0 20px 60px rgba(0,0,0,.6);
+  :root[data-theme="light"]{
+    --accent:#E8973A;
+    --ink:#091936; --muted:#6a6f78;
+    --bg-page:#efece5; --bg-sheet:#fdfcfa;
+    --text:#23262b; --heading:#1c1f24; --subtitle-c:#565b63;
+    --dim:#8a8f97; --dimmer:#a6abb2; --authors-strong:#1c1f24;
+    --shadow:0 1px 2px rgba(30,30,40,.06),0 18px 50px rgba(30,30,40,.10);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -2399,11 +2391,8 @@
     (function(){
       var root=document.documentElement;
       var btn=document.getElementById('themeToggle');
-      var media=window.matchMedia('(prefers-color-scheme: dark)');
       function isDark(){
-        var explicit=root.getAttribute('data-theme');
-        if(explicit)return explicit==='dark';
-        return media.matches;
+        return root.getAttribute('data-theme')!=='light';
       }
       function render(){btn.innerHTML=isDark()?'&#9789;':'&#9788;';}
       btn.addEventListener('click',function(){
