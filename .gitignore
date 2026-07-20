@@ -14,3 +14,9 @@ __pycache__/
 
 # Backups written by make-pdf.sh / update_bibliography.py
 *.bak
+
+# Local-only funding section for departmental PDFs (see make-pdf.sh --funding).
+# Never published: this repo is public, so keep it out of git entirely.
+funding.html
+teagueCV-funding.pdf
+.funding-build.html

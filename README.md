@@ -43,6 +43,23 @@ CHROME=/path/to/chrome ./make-pdf.sh
 
 This normally happens automatically — see CI below.
 
+### Departmental / internal PDFs with a Funding section
+
+`index.html` has an inert `<!-- FUNDING_SECTION -->` marker (right after
+Awards & Honors) that never renders anything on its own. To produce a
+one-off PDF that includes a Funding section — e.g. for a departmental
+review — create a local `funding.html` with a `<section>...</section>`
+block (see the format of the other sections in `index.html`), then run:
+
+```sh
+./make-pdf.sh --funding
+```
+
+This writes `teagueCV-funding.pdf` without touching `index.html` or
+`teagueCV.pdf`. Both `funding.html` and `teagueCV-funding.pdf` are
+gitignored — since this repo is public, they're never committed and never
+appear on the live site.
+
 ## Refreshing the bibliography
 
 ```sh
