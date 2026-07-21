@@ -44,3 +44,9 @@ NASA/ADS public library, using `update_bibliography.py` in the repo root.
   comma-less case and reorders it.
 - Each paper title links out to its ADS abstract page
   (`https://ui.adsabs.harvard.edu/abs/<bibcode>/abstract`).
+- First-authored papers led by a current/former Planet Formation Lab member
+  get a superscript &dagger;/&Dagger;/&sect; tag (undergrad/grad/postdoc) —
+  see `PFL_ROSTER` near the top of `update_bibliography.py`. When the
+  "Advising & Mentoring" section of index.html changes (new mentee, someone
+  graduates), update `PFL_ROSTER` to match by hand — it isn't derived from
+  the HTML automatically.

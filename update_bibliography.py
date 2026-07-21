@@ -21,6 +21,17 @@ Notes / known limitations (check the diff before committing):
     detected and reordered so the surname always ends up first.
   - "R. Teague" (any case/position) is bolded via <strong>, matching the
     existing convention of highlighting your own name in co-author lists.
+  - Papers first-authored by a current/former Planet Formation Lab member
+    (see PFL_ROSTER below) get a superscript dagger/double-dagger/section-mark
+    tag prepended to the title: undergrad, graduate student (PhD or MSc), or
+    postdoc respectively. Only the *first* author is checked — this marks
+    papers led by a PFL mentee, not merely co-authored by one. Keep
+    PFL_ROSTER in sync with the "Advising & Mentoring" section of index.html
+    by hand; it is not fetched from anywhere automatically. Matching is
+    surname + first-initial only
+    (ADS rarely gives full given names), so a common surname (e.g. "Chen")
+    can in principle collide with an unrelated author sharing that initial
+    — check new tags in the diff, don't trust them blindly.
   - Venue formatting assumes "<Journal>, <volume>, <page>" for refereed work
     and "arXiv e-prints, arXiv:XXXXX.XXXXX" for preprints. Book chapters /
     conference proceedings with unusual ADS metadata may need a manual tweak.
@@ -33,6 +44,7 @@ import argparse
 import os
 import re
 import sys
+import unicodedata
 from collections import defaultdict
 
 try:
@@ -45,6 +57,32 @@ DEFAULT_LIBRARY_ID = "uxd2UZZ5QSGSqcI7i3llMQ"  # https://ui.adsabs.harvard.edu/p
 SELF_SURNAME = "teague"
 FIELDS = "bibcode,title,author,year,pub,volume,page,identifier,pubdate,doctype"
 CHUNK_SIZE = 50
+
+# Current/former Planet Formation Lab members whose *first-authored* papers
+# get a lead-author tag. Mirrors the "Advising & Mentoring" section of
+# index.html (PFL only — pre-MIT co-supervised students are excluded) plus
+# EAPS-affiliated postdocs. (surname, given-name first initial, role) —
+# role is one of "undergrad", "grad" (PhD or MSc), "postdoc".
+PFL_ROSTER = [
+    ("Albrow", "L", "grad"),
+    ("Macias", "I", "grad"),
+    ("Lawrence", "J", "grad"),
+    ("Duraku", "M", "grad"),
+    ("De'Ath", "A", "grad"),
+    ("Colclasure", "A", "grad"),
+    ("Im", "H", "undergrad"),
+    ("Holland", "J", "undergrad"),
+    ("Cusson", "E", "undergrad"),
+    ("Nath", "A", "undergrad"),
+    ("Chen", "C", "undergrad"),
+    ("van Duzer", "A", "undergrad"),
+    ("Orgel", "A", "undergrad"),
+    ("Wolfer", "L", "postdoc"),  # Wölfer, matched accent-insensitively
+    ("Barraza-Alfaro", "M", "postdoc"),
+    ("Speedie", "J", "postdoc"),
+]
+PFL_SYMBOLS = {"undergrad": "†", "grad": "‡", "postdoc": "§"}  # † ‡ §
+PFL_LABELS = {"undergrad": "undergraduate", "grad": "graduate student", "postdoc": "postdoc"}
 
 HTML_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html")
 
@@ -142,6 +180,35 @@ def split_author(raw):
     return last, given
 
 
+def strip_accents(s):
+    s = unicodedata.normalize("NFKD", s)
+    return "".join(c for c in s if not unicodedata.combining(c))
+
+
+def normalize_name(s):
+    return strip_accents(s).strip().lower()
+
+
+def pfl_role(last, given):
+    last_n = normalize_name(last)
+    initial_n = normalize_name(given)[:1] if given else ""
+    for surname, initial, role in PFL_ROSTER:
+        surname_n = normalize_name(surname)
+        candidates = {surname_n, surname_n.split()[-1]}
+        if last_n in candidates and initial.lower() == initial_n:
+            return role
+    return None
+
+
+def lead_pfl_role(authors):
+    """Role of the first author, if they're a PFL mentee — used to tag the title, not the name."""
+    authors = authors or []
+    if not authors:
+        return None
+    last, given = split_author(authors[0])
+    return pfl_role(last, given)
+
+
 def format_author(raw, is_first_position):
     last, given = split_author(raw)
     initials = abbreviate_given_names(given) if given else ""
@@ -204,38 +271,51 @@ def build_section_html(records):
         year = rec.get("year", "0000")
         by_year[year].append(rec)
 
-    lines = []
-    lines.append('      <h2>Refereed Publications</h2><div class="rule"></div>')
-    lines.append(
-        f'      <p class="pubsummary">{total} refereed articles &middot; {first_author_count} as first author '
-        "&middot; reverse chronological &middot; name in bold</p>"
-    )
-
+    used_roles = set()
+    body = []
     num = total
     for year in sorted(by_year.keys(), reverse=True):
         year_records = by_year[year]
-        lines.append('      <div class="pubgroup">')
-        lines.append(
+        body.append('      <div class="pubgroup">')
+        body.append(
             f'        <div class="yearcol"><div class="year">{year}</div>'
             f'<div class="yearcount">{len(year_records)} paper{"s" if len(year_records) != 1 else ""}</div></div>'
         )
-        lines.append('        <div class="publist">')
+        body.append('        <div class="publist">')
         for rec in year_records:
             title = normalize_title(rec.get("title"))
             url = ads_abstract_url(rec.get("bibcode", ""))
             authors = format_authors(rec.get("author"))
             venue = format_venue(rec)
-            lines.append('        <div class="pub">')
-            lines.append(f'          <div class="pubnum">{num}</div>')
-            lines.append('          <div class="pubmain">')
-            lines.append(f'            <div class="pubtitle"><a href="{url}" target="_blank" rel="noopener">{title}</a></div>')
-            lines.append(f'            <div class="pubauthors">{authors}</div>')
-            lines.append(f'            <div class="pubvenue">{venue}</div>')
-            lines.append("          </div>")
-            lines.append("        </div>")
+            role = lead_pfl_role(rec.get("author"))
+            title_tag = ""
+            if role:
+                used_roles.add(role)
+                title_tag = f'<sup class="pfltag" title="Led by a PFL {PFL_LABELS[role]}">{PFL_SYMBOLS[role]}</sup>'
+            body.append('        <div class="pub">')
+            body.append(f'          <div class="pubnum">{num}</div>')
+            body.append('          <div class="pubmain">')
+            body.append(f'            <div class="pubtitle">{title_tag}<a href="{url}" target="_blank" rel="noopener">{title}</a></div>')
+            body.append(f'            <div class="pubauthors">{authors}</div>')
+            body.append(f'            <div class="pubvenue">{venue}</div>')
+            body.append("          </div>")
+            body.append("        </div>")
             num -= 1
-        lines.append("        </div>")
-        lines.append("      </div>")
+        body.append("        </div>")
+        body.append("      </div>")
+
+    summary = (
+        f"{total} refereed articles &middot; {first_author_count} as first author "
+        "&middot; reverse chronological &middot; name in bold"
+    )
+    for role in ("undergrad", "grad", "postdoc"):
+        if role in used_roles:
+            summary += f" &middot; {PFL_SYMBOLS[role]} led by PFL {PFL_LABELS[role]}"
+
+    lines = []
+    lines.append('      <h2>Refereed Publications</h2><div class="rule"></div>')
+    lines.append(f'      <p class="pubsummary">{summary}</p>')
+    lines.extend(body)
 
     return "\n".join(lines)
 
