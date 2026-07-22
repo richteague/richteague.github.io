@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Regenerate the "Refereed Publications" section of index.html from a
-NASA/ADS public library.
+Regenerate the "Refereed Publications" and "Most Cited Publications" sections of
+index.html from a NASA/ADS public library.
 
 Requires:
     pip install requests
@@ -10,7 +10,15 @@ Requires:
 Usage:
     python3 update_bibliography.py
     python3 update_bibliography.py --library uxd2UZZ5QSGSqcI7i3llMQ
-    python3 update_bibliography.py --dry-run     # print the new section, don't touch the file
+    python3 update_bibliography.py --dry-run     # print both sections, don't touch the file
+
+Two sections are regenerated from the same ADS fetch:
+  - "Refereed Publications" — the full reverse-chronological list at the bottom.
+  - "Most Cited Publications" — the MOST_CITED_COUNT (default 5) papers with the
+    highest ADS citation_count, shown near the top of the CV (inserted right
+    after the Education section on first run, replaced in place thereafter).
+    Each row shows its live citation count. Citation counts drift week to week,
+    so this section will usually produce a diff on every scheduled run.
 
 Notes / known limitations (check the diff before committing):
   - Author lists are abbreviated to "Last, F. M." (first author) / "F. M. Last"
@@ -41,6 +49,7 @@ Notes / known limitations (check the diff before committing):
     (https://ui.adsabs.harvard.edu/abs/<bibcode>/abstract).
 """
 import argparse
+import datetime
 import os
 import re
 import sys
@@ -55,8 +64,9 @@ except ImportError:
 ADS_API = "https://api.adsabs.harvard.edu/v1"
 DEFAULT_LIBRARY_ID = "uxd2UZZ5QSGSqcI7i3llMQ"  # https://ui.adsabs.harvard.edu/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ
 SELF_SURNAME = "teague"
-FIELDS = "bibcode,title,author,year,pub,volume,page,identifier,pubdate,doctype"
+FIELDS = "bibcode,title,author,year,pub,volume,page,identifier,pubdate,doctype,citation_count"
 CHUNK_SIZE = 50
+MOST_CITED_COUNT = 5  # size of the "Most Cited Publications" section near the top of the CV
 
 # Current/former Planet Formation Lab members whose *first-authored* papers
 # get a lead-author tag. Mirrors the "Advising & Mentoring" section of
@@ -320,6 +330,103 @@ def build_section_html(records):
     return "\n".join(lines)
 
 
+def citation_count(rec):
+    c = rec.get("citation_count", 0)
+    return c if isinstance(c, int) and c > 0 else 0
+
+
+def most_cited_sort_key(rec):
+    # Highest citation count first; break ties by newest pubdate so the ordering
+    # is deterministic (ADS returns citation_count as an int, missing for some
+    # very recent papers — treated as 0 by citation_count()).
+    return (citation_count(rec), rec.get("pubdate", "0000-00-00"), rec.get("bibcode", ""))
+
+
+def build_most_cited_html(records, n=MOST_CITED_COUNT, as_of=None):
+    """Build the 'Most Cited Publications' section: the top-n papers by ADS
+    citation count, reusing the same author/venue/PFL formatting as the full
+    bibliography. Rendered as <section>-less inner HTML (heading + rows), to be
+    spliced into a <section> wrapper by upsert_most_cited_section()."""
+    ranked = sorted(records, key=most_cited_sort_key, reverse=True)[:n]
+
+    body = []
+    for rec in ranked:
+        title = normalize_title(rec.get("title"))
+        url = ads_abstract_url(rec.get("bibcode", ""))
+        authors = format_authors(rec.get("author"))
+        venue = format_venue(rec)
+        cites = citation_count(rec)
+        role = lead_pfl_role(rec.get("author"))
+        title_tag = ""
+        if role:
+            title_tag = f'<sup class="pfltag" title="Led by a PFL {PFL_LABELS[role]}">{PFL_SYMBOLS[role]}</sup>'
+        label = "citation" if cites == 1 else "citations"
+        body.append('      <div class="citedpub">')
+        body.append(
+            f'        <div class="citedcount"><div class="citednum">{cites:,}</div>'
+            f'<div class="citedlabel">{label}</div></div>'
+        )
+        body.append('        <div class="pubmain">')
+        body.append(f'          <div class="pubtitle">{title_tag}<a href="{url}" target="_blank" rel="noopener">{title}</a></div>')
+        body.append(f'          <div class="pubauthors">{authors}</div>')
+        body.append(f'          <div class="pubvenue">{venue}</div>')
+        body.append("        </div>")
+        body.append("      </div>")
+
+    count_word = {1: "single", 2: "two", 3: "three", 4: "four", 5: "five"}.get(len(ranked), str(len(ranked)))
+    summary = f"{count_word.capitalize()} most cited publications &middot; citation counts from NASA/ADS"
+    if as_of:
+        summary += f", updated {as_of}"
+
+    lines = []
+    lines.append('      <h2>Most Cited Publications</h2><div class="rule"></div>')
+    lines.append(f'      <p class="pubsummary">{summary}</p>')
+    lines.extend(body)
+    return "\n".join(lines)
+
+
+MOST_CITED_HEADING = "<h2>Most Cited Publications</h2>"
+EDUCATION_HEADING = "<h2>Education</h2>"
+
+
+def replace_most_cited_section(html, new_section):
+    """Replace an existing 'Most Cited Publications' section body in place,
+    preserving its surrounding <section>...</section> wrapper (mirrors
+    replace_section)."""
+    start = html.index(MOST_CITED_HEADING)
+    line_start = html.rfind("\n", 0, start) + 1
+    try:
+        end = html.index("</section>", start)
+    except ValueError:
+        die(f"found '{MOST_CITED_HEADING}' but no closing </section> after it in {HTML_FILE}")
+    return html[:line_start] + new_section + "\n    " + html[end:]
+
+
+def insert_most_cited_section(html, new_section):
+    """First-run bootstrap: insert a fresh 'Most Cited Publications' <section>
+    immediately after the Education section, so the block lands near the top of
+    the CV as intended. Subsequent runs go through replace_most_cited_section."""
+    try:
+        edu = html.index(EDUCATION_HEADING)
+    except ValueError:
+        die(
+            f"could not find '{EDUCATION_HEADING}' in {HTML_FILE} — the Most Cited "
+            "section is inserted right after Education; has that heading changed?"
+        )
+    try:
+        edu_end = html.index("</section>", edu) + len("</section>")
+    except ValueError:
+        die(f"found '{EDUCATION_HEADING}' but no closing </section> after it in {HTML_FILE}")
+    block = "\n\n    <section>\n" + new_section + "\n    </section>"
+    return html[:edu_end] + block + html[edu_end:]
+
+
+def upsert_most_cited_section(html, new_section):
+    if MOST_CITED_HEADING in html:
+        return replace_most_cited_section(html, new_section)
+    return insert_most_cited_section(html, new_section)
+
+
 def replace_section(html, new_section):
     start_marker = '<h2>Refereed Publications</h2>'
     try:
@@ -357,8 +464,13 @@ def main():
     print(f"  {len(records)} records", file=sys.stderr)
 
     new_section = build_section_html(records)
+    as_of = datetime.date.today().strftime("%B %Y")
+    most_cited_section = build_most_cited_html(records, as_of=as_of)
 
     if args.dry_run:
+        print("<!-- ===== Most Cited Publications ===== -->")
+        print(most_cited_section)
+        print("\n<!-- ===== Refereed Publications ===== -->")
         print(new_section)
         return
 
@@ -370,6 +482,7 @@ def main():
         f.write(html)
 
     updated = replace_section(html, new_section)
+    updated = upsert_most_cited_section(updated, most_cited_section)
     with open(HTML_FILE, "w") as f:
         f.write(updated)
 
