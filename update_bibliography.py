@@ -17,8 +17,11 @@ Two sections are regenerated from the same ADS fetch:
   - "Most Cited Publications" — the MOST_CITED_COUNT (default 5) papers with the
     highest ADS citation_count, shown near the top of the CV (inserted right
     after the Education section on first run, replaced in place thereafter).
-    Each row shows its live citation count. Citation counts drift week to week,
-    so this section will usually produce a diff on every scheduled run.
+    Each row shows its live citation count. By default only papers R. Teague
+    first-authored are considered (MOST_CITED_FIRST_AUTHOR_ONLY = True); pass
+    --most-cited-all-authors to rank across every paper in the library instead.
+    Citation counts drift week to week, so this section will usually produce a
+    diff on every scheduled run.
 
 Notes / known limitations (check the diff before committing):
   - Author lists are abbreviated to "Last, F. M." (first author) / "F. M. Last"
@@ -67,6 +70,10 @@ SELF_SURNAME = "teague"
 FIELDS = "bibcode,title,author,year,pub,volume,page,identifier,pubdate,doctype,citation_count"
 CHUNK_SIZE = 50
 MOST_CITED_COUNT = 5  # size of the "Most Cited Publications" section near the top of the CV
+# When True (the default), the Most Cited section only ranks papers R. Teague
+# first-authored. Flip to False here (or pass --most-cited-all-authors for a
+# one-off run) to rank across every paper in the library, co-authored included.
+MOST_CITED_FIRST_AUTHOR_ONLY = True
 
 # Current/former Planet Formation Lab members whose *first-authored* papers
 # get a lead-author tag. Mirrors the "Advising & Mentoring" section of
@@ -342,12 +349,27 @@ def most_cited_sort_key(rec):
     return (citation_count(rec), rec.get("pubdate", "0000-00-00"), rec.get("bibcode", ""))
 
 
-def build_most_cited_html(records, n=MOST_CITED_COUNT, as_of=None):
+def is_self_first_author(rec):
+    """True if the first-listed author is R. Teague (same surname test used to
+    bold the name and count first-author papers elsewhere in the script)."""
+    authors = rec.get("author") or []
+    if not authors:
+        return False
+    return split_author(authors[0])[0].lower() == SELF_SURNAME
+
+
+def build_most_cited_html(records, n=MOST_CITED_COUNT, as_of=None,
+                          first_author_only=MOST_CITED_FIRST_AUTHOR_ONLY):
     """Build the 'Most Cited Publications' section: the top-n papers by ADS
     citation count, reusing the same author/venue/PFL formatting as the full
     bibliography. Rendered as <section>-less inner HTML (heading + rows), to be
-    spliced into a <section> wrapper by upsert_most_cited_section()."""
-    ranked = sorted(records, key=most_cited_sort_key, reverse=True)[:n]
+    spliced into a <section> wrapper by upsert_most_cited_section().
+
+    By default only papers R. Teague first-authored are ranked; pass
+    first_author_only=False (see MOST_CITED_FIRST_AUTHOR_ONLY) to rank across
+    every paper in the library."""
+    pool = [r for r in records if is_self_first_author(r)] if first_author_only else list(records)
+    ranked = sorted(pool, key=most_cited_sort_key, reverse=True)[:n]
 
     body = []
     for rec in ranked:
@@ -374,7 +396,8 @@ def build_most_cited_html(records, n=MOST_CITED_COUNT, as_of=None):
         body.append("      </div>")
 
     count_word = {1: "single", 2: "two", 3: "three", 4: "four", 5: "five"}.get(len(ranked), str(len(ranked)))
-    summary = f"{count_word.capitalize()} most cited publications &middot; citation counts from NASA/ADS"
+    kind = "first-author publications" if first_author_only else "publications"
+    summary = f"{count_word.capitalize()} most cited {kind} &middot; citation counts from NASA/ADS"
     if as_of:
         summary += f", updated {as_of}"
 
@@ -449,6 +472,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--library", default=DEFAULT_LIBRARY_ID, help="ADS library id")
     parser.add_argument("--dry-run", action="store_true", help="print the new section instead of writing the file")
+    parser.add_argument(
+        "--most-cited-all-authors",
+        action="store_true",
+        help="rank Most Cited across all papers, not just first-author ones "
+        "(default is first-author only; see MOST_CITED_FIRST_AUTHOR_ONLY)",
+    )
     args = parser.parse_args()
 
     token = get_token()
@@ -465,7 +494,8 @@ def main():
 
     new_section = build_section_html(records)
     as_of = datetime.date.today().strftime("%B %Y")
-    most_cited_section = build_most_cited_html(records, as_of=as_of)
+    first_author_only = MOST_CITED_FIRST_AUTHOR_ONLY and not args.most_cited_all_authors
+    most_cited_section = build_most_cited_html(records, as_of=as_of, first_author_only=first_author_only)
 
     if args.dry_run:
         print("<!-- ===== Most Cited Publications ===== -->")
