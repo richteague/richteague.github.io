@@ -3,10 +3,27 @@ name: Refresh bibliography
 # Weekly ADS sync. Opens a PR instead of pushing directly to main so a
 # human still reviews the diff (author formatting / venue edge cases per
 # update_bibliography.py's docstring) before it goes live.
+#
+# Also re-runs whenever update_bibliography.py itself is pushed to main, so a
+# change to the formatting logic / PFL_ROSTER / MOST_CITED_COUNT is re-applied
+# right away instead of waiting for Monday. Scoped to that one file on purpose:
+# unrelated content edits shouldn't spawn a bibliography PR, and new ADS papers
+# are already covered by the weekly schedule. Loop-safe — build-pdf.yml's PDF
+# auto-commit uses GITHUB_TOKEN, and GitHub doesn't re-trigger workflows for
+# GITHUB_TOKEN pushes.
 on:
+  push:
+    branches: [main]
+    paths:
+      - update_bibliography.py
   schedule:
     - cron: '0 12 * * 1'  # every Monday, 12:00 UTC
   workflow_dispatch: {}
+
+# Serialize runs so a push and the schedule can't race on the shared PR branch.
+concurrency:
+  group: update-bibliography
+  cancel-in-progress: true
 
 permissions:
   contents: write
