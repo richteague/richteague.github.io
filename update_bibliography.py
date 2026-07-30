@@ -342,6 +342,24 @@ def citation_count(rec):
     return c if isinstance(c, int) and c > 0 else 0
 
 
+def total_citations(records):
+    """Sum of ADS citation counts across every paper in the library."""
+    return sum(citation_count(r) for r in records)
+
+
+def h_index(records):
+    """The h-index over every paper in the library: the largest h such that h
+    papers each have at least h citations."""
+    counts = sorted((citation_count(r) for r in records), reverse=True)
+    h = 0
+    for i, c in enumerate(counts, start=1):
+        if c >= i:
+            h = i
+        else:
+            break
+    return h
+
+
 def most_cited_sort_key(rec):
     # Highest citation count first; break ties by newest pubdate so the ordering
     # is deterministic (ADS returns citation_count as an int, missing for some
@@ -367,7 +385,12 @@ def build_most_cited_html(records, n=MOST_CITED_COUNT, as_of=None,
 
     By default only papers R. Teague first-authored are ranked; pass
     first_author_only=False (see MOST_CITED_FIRST_AUTHOR_ONLY) to rank across
-    every paper in the library."""
+    every paper in the library.
+
+    The summary line above the rows also reports two career-wide metrics —
+    total citations and the h-index — always computed over every paper in the
+    library regardless of first_author_only, since those describe the whole
+    body of work, not just the first-author subset shown."""
     pool = [r for r in records if is_self_first_author(r)] if first_author_only else list(records)
     ranked = sorted(pool, key=most_cited_sort_key, reverse=True)[:n]
 
@@ -397,7 +420,15 @@ def build_most_cited_html(records, n=MOST_CITED_COUNT, as_of=None,
 
     count_word = {1: "single", 2: "two", 3: "three", 4: "four", 5: "five"}.get(len(ranked), str(len(ranked)))
     kind = "first-author publications" if first_author_only else "publications"
-    summary = f"{count_word.capitalize()} most cited {kind} &middot; citation counts from NASA/ADS"
+    # Career-wide totals, always across every paper in the library (not just the
+    # first-author subset shown above) — "all papers" per the CV's intent.
+    total_cites = total_citations(records)
+    h = h_index(records)
+    summary = (
+        f"{count_word.capitalize()} most cited {kind} &middot; "
+        f"{total_cites:,} total citations &middot; h-index {h} "
+        "&middot; citation counts from NASA/ADS"
+    )
     if as_of:
         summary += f", updated {as_of}"
 
