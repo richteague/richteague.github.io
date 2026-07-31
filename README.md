@@ -99,11 +99,16 @@ Two GitHub Actions workflows:
   `fonts/`, or `make-pdf.sh`, rebuilds `teagueCV.pdf` and commits it if it
   changed. Keeps the PDF from ever drifting out of sync with the HTML.
 - **`update-bibliography.yml`** — runs `update_bibliography.py` every Monday
-  (or on demand via `workflow_dispatch`) and opens a PR with the result, so
-  new papers and refreshed citation counts (both the "Refereed Publications"
-  and "Most Cited Publications" sections) land within the diff-review the
-  script's docstring recommends rather than needing someone to remember to run
-  it.
+  (or on demand via `workflow_dispatch`), rebuilds `teagueCV.pdf` to match, and
+  opens a PR with both — then **merges it automatically**, so new papers and
+  refreshed citation counts (both the "Refereed Publications" and "Most Cited
+  Publications" sections) go live with no manual step. The PDF is rebuilt inside
+  this workflow on purpose: the auto-merge pushes with `GITHUB_TOKEN`, and GitHub
+  won't trigger `build-pdf.yml` from a `GITHUB_TOKEN` push, so bundling the PDF
+  into the same PR is what keeps it in sync. If you'd rather review each refresh
+  by hand again, delete the "Auto-merge the pull request" step and the PR will
+  just stay open. (Because the diff auto-merges, sanity-check author/venue
+  formatting occasionally after the fact per the script's docstring.)
 
 The bibliography workflow needs an `ADS_API_TOKEN` repository secret (Settings
 → Secrets and variables → Actions), and the repo needs "Allow GitHub Actions
