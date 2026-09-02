@@ -43,6 +43,21 @@
     --fs-xs:10.5px;     /* pub index, year count */
     --w-regular:400;
     --w-semibold:600;
+
+    /* ---- vertical rhythm ----
+       Screen values; the @media print block below tightens every one of
+       them, since the airy spacing that suits a web page wastes a lot of
+       paper across a 20-plus-page PDF. Change spacing here, not inline. */
+    --sp-section:40px;   /* gap above each <section> */
+    --sp-header:22px;    /* name block -> header rule */
+    --sp-rule:18px;      /* accent rule -> first row of a section */
+    --sp-row:15px;       /* between entry / publication rows */
+    --sp-cited:16px;     /* between most-cited rows */
+    --sp-group:24px;     /* between publication year groups */
+    --sp-summary:21px;   /* publication summary line -> following entry */
+    --lh-title:1.34;     /* publication title */
+    --lh-authors:1.45;   /* publication author list */
+    --lh-sub:1.25;       /* .sub, .contact */
   }
   /* PRINT-SYNC: keep in step with the @media print palette below */
   :root[data-theme="light"]{
@@ -64,11 +79,11 @@
   @media print{.theme-toggle{display:none;}}
 
   /* ---- header ---- */
-  header{border-bottom:3px double var(--accent);padding-bottom:22px;}
+  header{border-bottom:3px double var(--accent);padding-bottom:var(--sp-header);}
   .htop{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;}
   h1{font-family:var(--head);font-size:var(--fs-display);font-weight:var(--w-semibold);margin:0;letter-spacing:-.015em;line-height:1.02;color:var(--heading);}
   .subtitle{font-size:var(--fs-meta);color:var(--subtitle-c);margin-top:8px;}
-  .contact{text-align:right;font-size:var(--fs-sm);line-height:1.25;color:var(--muted);}
+  .contact{text-align:right;font-size:var(--fs-sm);line-height:var(--lh-sub);color:var(--muted);}
   .contact a{color:inherit;text-decoration:none;}
   .pdf-link{margin-top:6px;}
   .pdf-link a{color:var(--accent);}
@@ -76,19 +91,19 @@
   @media print{.pdf-link{display:none;}}
 
   /* ---- section headings ---- */
-  section{margin-top:40px;}
+  section{margin-top:var(--sp-section);}
   h2{font-family:var(--head);font-size:var(--fs-sm);letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin:0;font-weight:var(--w-semibold);}
-  .rule{height:1.5px;background:var(--accent);margin:6px 0 18px;opacity:.9;}
-  .pubsummary + .entry{margin-top:21px;}
+  .rule{height:1.5px;background:var(--accent);margin:6px 0 var(--sp-rule);opacity:.9;}
+  .pubsummary + .entry{margin-top:var(--sp-summary);}
 
   /* ---- date / label / entry rows (education, appointments, awards, etc.) ---- */
-  .entry{display:grid;grid-template-columns:116px 1fr;gap:22px;margin-bottom:15px;}
+  .entry{display:grid;grid-template-columns:116px 1fr;gap:22px;margin-bottom:var(--sp-row);}
   .entry:last-child{margin-bottom:0;}
   .date{font-size:var(--fs-meta);color:var(--accent);font-variant-numeric:tabular-nums;}
   .date .dim{opacity:.6;}
   .lbl{font-size:var(--fs-meta);color:var(--accent);}
   .role{font-size:var(--fs-body);font-weight:var(--w-semibold);color:var(--ink);}
-  .sub{font-size:var(--fs-meta);color:var(--muted);margin-top:1px;line-height:1.25;text-wrap:pretty;}
+  .sub{font-size:var(--fs-meta);color:var(--muted);margin-top:1px;line-height:var(--lh-sub);text-wrap:pretty;}
   .ph{color:var(--accent);opacity:.65;}
   .line{font-size:var(--fs-body);font-weight:var(--w-regular);color:var(--ink);text-wrap:pretty;}
   .line strong{font-weight:var(--w-semibold);}
@@ -96,22 +111,22 @@
 
   /* ---- publications ---- */
   .pubsummary{font-size:var(--fs-sm);color:var(--dim);margin:0 0 1em;font-style:italic;}
-  .pubgroup{display:grid;grid-template-columns:116px 1fr;gap:22px;margin-top:24px;}
+  .pubgroup{display:grid;grid-template-columns:116px 1fr;gap:22px;margin-top:var(--sp-group);}
   .year{font-family:var(--head);font-size:var(--fs-year);font-weight:var(--w-semibold);color:var(--accent);line-height:1;}
   .yearcount{font-size:var(--fs-xs);color:var(--dimmer);margin-top:5px;letter-spacing:.04em;text-transform:uppercase;}
-  .pub{display:flex;gap:13px;margin-bottom:15px;}
+  .pub{display:flex;gap:13px;margin-bottom:var(--sp-row);}
   .pubnum{min-width:26px;text-align:right;font-size:var(--fs-xs);color:var(--accent);font-variant-numeric:tabular-nums;padding-top:3px;opacity:.75;}
   .pubmain{flex:1;}
-  .pubtitle{font-size:var(--fs-body);font-weight:var(--w-semibold);color:var(--ink);line-height:1.34;text-wrap:pretty;}
+  .pubtitle{font-size:var(--fs-body);font-weight:var(--w-semibold);color:var(--ink);line-height:var(--lh-title);text-wrap:pretty;}
   .pubtitle a{color:inherit;text-decoration:none;}
-  .pubauthors{font-size:var(--fs-meta);color:var(--muted);margin-top:2px;line-height:1.45;}
+  .pubauthors{font-size:var(--fs-meta);color:var(--muted);margin-top:2px;line-height:var(--lh-authors);}
   .pubauthors strong{color:var(--authors-strong);font-weight:700;}
   .pfltag{font-size:.7em;margin-right:2px;color:var(--ink);font-weight:var(--w-regular);cursor:help;}
   .pubvenue{font-size:var(--fs-sm);color:var(--dim);margin-top:1px;}
   .pubvenue em{color:var(--accent);opacity:.85;}
 
   /* ---- most cited (auto-generated by update_bibliography.py) ---- */
-  .citedpub{display:grid;grid-template-columns:116px 1fr;gap:22px;margin-bottom:16px;}
+  .citedpub{display:grid;grid-template-columns:116px 1fr;gap:22px;margin-bottom:var(--sp-cited);}
   .citedpub:last-child{margin-bottom:0;}
   .citednum{font-family:var(--head);font-size:var(--fs-year);font-weight:var(--w-semibold);color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
   .citedlabel{font-size:var(--fs-xs);color:var(--dimmer);margin-top:5px;letter-spacing:.04em;text-transform:uppercase;}
@@ -126,6 +141,11 @@
       --bg-page:#fff;--bg-sheet:#fff;--text:#1A1916;
       --heading:#1A1916;--subtitle-c:#585548;
       --dim:#7E7B70;--dimmer:#ABA89B;--authors-strong:#1A1916;
+      /* Tighter vertical rhythm on paper: same type sizes, less air. */
+      --sp-section:24px; --sp-header:14px; --sp-rule:11px;
+      --sp-row:9px;      --sp-cited:10px; --sp-group:15px;
+      --sp-summary:12px;
+      --lh-title:1.26;   --lh-authors:1.32; --lh-sub:1.2;
     }
     @page{size:letter;margin:0.7in;}
     section{break-inside:auto;}
