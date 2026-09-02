@@ -11,7 +11,7 @@ matching PDF export and a script that syncs the publication list from ADS.
 | `index.html` | The CV. All content and CSS live in this one file — edit text directly, or open it in a browser and use dev tools. |
 | `teagueCV.pdf` | PDF export of `index.html`, kept in sync automatically (see CI below). |
 | `fonts/` | Self-hosted Spectral + Source Serif 4 subsets (Latin only), avoiding a runtime dependency on Google Fonts. |
-| `make-pdf.sh` | Regenerates `teagueCV.pdf` from `index.html` via headless Chrome. |
+| `make-pdf.sh` | Regenerates `teagueCV.pdf` from `index.html` via headless Chrome; also builds local-only variant PDFs (see below). |
 | `update_bibliography.py` | Regenerates the "Refereed Publications" and "Most Cited Publications" sections from a NASA/ADS public library. |
 | `.github/workflows/` | CI: rebuilds the PDF on push, refreshes the bibliography weekly. |
 
@@ -50,22 +50,77 @@ CHROME=/path/to/chrome ./make-pdf.sh
 
 This normally happens automatically — see CI below.
 
-### Departmental / internal PDFs with a Funding section
+### Local-only variants (promotion cases, departmental reviews)
 
-`index.html` has an inert `<!-- FUNDING_SECTION -->` marker (right after
-Awards & Honors) that never renders anything on its own. To produce a
-one-off PDF that includes a Funding section — e.g. for a departmental
-review — create a local `funding.html` with a `<section>...</section>`
-block (see the format of the other sections in `index.html`), then run:
+Some one-off PDFs need material the public CV deliberately leaves out — a
+Funding section, the full mentoring record, papers submitted or in
+preparation. These live in a **gitignored `variants/`** directory, one
+subdirectory per variant, and are spliced into a temporary build file at
+render time:
 
 ```sh
-./make-pdf.sh --funding
+./make-pdf.sh --variant promotion    # -> teagueCV-promotion.pdf
 ```
 
-This writes `teagueCV-funding.pdf` without touching `index.html` or
-`teagueCV.pdf`. Both `funding.html` and `teagueCV-funding.pdf` are
-gitignored — since this repo is public, they're never committed and never
-appear on the live site.
+`index.html` and `teagueCV.pdf` are never touched, so the live site and its
+default PDF never see any of it. `variants/`, `funding.html` and
+`teagueCV-*.pdf` are all gitignored — this repo is public, so they stay out
+of git entirely. (`teagueCV-*.pdf` deliberately does not match the tracked
+`teagueCV.pdf`.)
+
+Each fragment is an HTML `<section>` that declares where it belongs, via a
+directive comment on its first line:
+
+| Directive | Effect |
+|---|---|
+| `<!-- CV-OVERLAY: at-marker FUNDING_SECTION -->` | Replaces the inert `<!-- FUNDING_SECTION -->` marker comment in `index.html` (right after Advising & Mentoring), which renders nothing on its own. |
+| `<!-- CV-OVERLAY: replace-section "Advising &amp; Mentoring" -->` | Swaps that entire `<section>` for this one, in place. |
+| `<!-- CV-OVERLAY: before-section "Refereed Publications" -->` | Inserts immediately before that section. |
+| `<!-- CV-OVERLAY: after-section "Teaching" -->` | Inserts immediately after it. |
+| `<!-- CV-OVERLAY: replace-text "<div class="role">Some Job Title</div>" -->` | Substitutes the target string wherever it appears, using the fragment body (HTML comments stripped, remaining lines joined) as the replacement. |
+
+Section targets match the literal `<h2>` text in `index.html`, so they must
+be HTML-escaped exactly as they appear there (`&amp;`, not `&`). Fragments
+apply in filename order — hence the `10-`/`20-`/`30-` prefixes.
+
+The first four ops splice in a whole `<section>`. `replace-text` is for
+changes too small to justify that — a job title, a single line of wording —
+and avoids duplicating a section that would then drift out of sync with
+`index.html`. Its target is matched literally (again HTML-escaped as written,
+`&ndash;` and all), **every** occurrence is replaced, and a target that
+matches nothing is a build error rather than a silent no-op. Since a bare
+phrase often appears more than once — job titles show up in the header
+subtitle as well as under Academic Appointments — wrap enough markup into the
+target to pin down the line you mean, e.g. the full
+`<div class="role">…</div>`. Copy the
+markup conventions from the surrounding sections in `index.html` (`entry` /
+`lbl` / `line` / `faint`, or `pubgroup` / `pub` / `pubtitle`) so the print
+styles apply unchanged.
+
+The existing `variants/promotion/` set is a working example:
+
+```
+variants/promotion/
+  10-funding.html      at-marker FUNDING_SECTION
+  20-in-prep.html      before-section "Refereed Publications"
+  30-mentoring.html    replace-section "Advising & Mentoring"
+```
+
+Two things worth knowing before adding to it:
+
+- **Submitted / in-prep papers must be their own section.**
+  `update_bibliography.py` deletes and rewrites everything between the
+  `<h2>Refereed Publications</h2>` heading and its closing `</section>` on
+  every weekly sync, so anything placed inside it is destroyed. The numbered
+  list and its "N refereed articles" summary are both generated from ADS,
+  which knows nothing about unpublished work.
+- **A fragment containing `{{TOTAL}}`** gets it replaced at build time by the
+  sum of every `$N` amount on that fragment's own `class="sub"` lines — used
+  by the Funding summary line.
+
+`./make-pdf.sh --funding` is kept as a legacy alias: it splices the
+gitignored top-level `funding.html` at the `FUNDING_SECTION` marker and
+writes `teagueCV-funding.pdf`, exactly as before.
 
 ## Refreshing the bibliography
 
