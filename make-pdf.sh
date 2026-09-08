@@ -13,16 +13,24 @@
 #
 #   <!-- CV-OVERLAY: at-marker FUNDING_SECTION -->
 #   <!-- CV-OVERLAY: replace-section "Advising &amp; Mentoring" -->
+#   <!-- CV-OVERLAY: remove-section "Most Cited Publications" -->
 #   <!-- CV-OVERLAY: before-section "Refereed Publications" -->
 #   <!-- CV-OVERLAY: after-section "Teaching" -->
 #   <!-- CV-OVERLAY: replace-text "<div class="role">Some Job Title</div>" -->
 #
-# The four section ops splice the fragment in as a block. replace-text is
+# remove-section deletes the named <section> and splices nothing in its place,
+# so its fragment is just the directive plus an explanation of why the section
+# is dropped; a body outside the comments is an error rather than silently
+# ignored. The other section ops splice the fragment in as a block. replace-text is
 # different: it substitutes every occurrence of the target string with the
 # fragment body (HTML comments stripped, remaining lines joined), for one-off
 # wording changes too small to be a whole section. It errors out if the target
 # isn't found, and replaces all matches -- so include enough surrounding
 # markup in the target to pin down the one line you mean.
+#
+# A fragment may be a symlink -- variants/promotion/10-funding.html points at
+# the top-level funding.html, so the grant list has one source of truth shared
+# by --funding and every variant that needs it. Symlink, never copy.
 #
 # Fragments are applied in filename order (hence the 10-/20-/30- prefixes)
 # to a temporary build file. index.html and teagueCV.pdf are never touched,
@@ -64,8 +72,8 @@ parse_directive() {
   [[ -n "$line" ]] || die "$f has no '<!-- CV-OVERLAY: ... -->' directive"
   IFS=$'\t' read -r op target <<<"$line"
   case "$op" in
-    at-marker|replace-section|before-section|after-section|replace-text) ;;
-    *) die "$f: unknown overlay op '$op' (expected at-marker, replace-section, before-section, after-section or replace-text)" ;;
+    at-marker|replace-section|remove-section|before-section|after-section|replace-text) ;;
+    *) die "$f: unknown overlay op '$op' (expected at-marker, replace-section, remove-section, before-section, after-section or replace-text)" ;;
   esac
   [[ -n "$target" ]] || die "$f: overlay op '$op' needs a target"
   FRAGMENTS+=("$f"); OPS+=("$op"); TARGETS+=("$target")
@@ -96,6 +104,30 @@ case "${1:-}" in
     die "unknown option '$1' (use --variant <name>, or --funding)"
     ;;
 esac
+
+# Prints a fragment's body with HTML comments (single- or multi-line) and blank
+# lines removed -- the same rule replace-text uses to build its replacement
+# text. Only used to check that a remove-section fragment is comments-only.
+STRIP_COMMENTS_AWK='
+  {
+    fl = $0
+    while (1) {
+      if (incomment) {
+        e = index(fl, "-->")
+        if (!e) { fl = ""; break }
+        fl = substr(fl, e + 3); incomment = 0
+      } else {
+        b = index(fl, "<!--")
+        if (!b) break
+        e = index(substr(fl, b + 4), "-->")
+        if (!e) { fl = substr(fl, 1, b - 1); incomment = 1; break }
+        fl = substr(fl, 1, b - 1) substr(fl, b + 4 + e + 2)
+      }
+    }
+    gsub(/^[[:space:]]+|[[:space:]]+$/, "", fl)
+    if (fl != "") print fl
+  }
+'
 
 # Splices one fragment into the CV at the place its directive names.
 SPLICE_AWK='
@@ -151,15 +183,16 @@ SPLICE_AWK='
       for (i = h; i <= n; i++)  if (index(line[i], "</section>")) { fin = i; break }
       if (!sec || !fin) { print "error: section " target " has no enclosing <section>...</section>" > "/dev/stderr"; exit 1 }
       if      (op == "replace-section") { s = sec;     e = fin }
+      else if (op == "remove-section")  { s = sec;     e = fin; nofrag = 1 }  # delete, insert nothing
       else if (op == "before-section")  { s = sec;     e = sec - 1 }  # empty range: insert only
       else                              { s = fin + 1; e = fin }      # after-section
     }
     for (i = 1; i <= n; i++) {
-      if (i == s) while ((getline fl < frag) > 0) print fl
+      if (i == s && !nofrag) while ((getline fl < frag) > 0) print fl
       if (i >= s && i <= e) continue
       print line[i]
     }
-    if (s == n + 1) while ((getline fl < frag) > 0) print fl   # inserting past the last line
+    if (s == n + 1 && !nofrag) while ((getline fl < frag) > 0) print fl   # inserting past the last line
   }
 '
 
@@ -172,6 +205,12 @@ if [[ -n "$VARIANT" ]]; then
 
   for i in "${!FRAGMENTS[@]}"; do
     f="${FRAGMENTS[$i]}"
+
+    # remove-section splices nothing in, so any real markup in the fragment
+    # would disappear without a trace. Fail loudly instead of ignoring it.
+    if [[ "${OPS[$i]}" == "remove-section" && -n "$(awk "$STRIP_COMMENTS_AWK" "$f")" ]]; then
+      die "$f: remove-section inserts nothing, but this file has content outside its HTML comments — delete it, or switch the directive to replace-section"
+    fi
 
     if grep -q '{{TOTAL}}' "$f"; then
       # Sum the $ amount of every entry (PI and co-I alike) in this fragment.

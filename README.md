@@ -75,6 +75,7 @@ directive comment on its first line:
 |---|---|
 | `<!-- CV-OVERLAY: at-marker FUNDING_SECTION -->` | Replaces the inert `<!-- FUNDING_SECTION -->` marker comment in `index.html` (right after Advising & Mentoring), which renders nothing on its own. |
 | `<!-- CV-OVERLAY: replace-section "Advising &amp; Mentoring" -->` | Swaps that entire `<section>` for this one, in place. |
+| `<!-- CV-OVERLAY: remove-section "Most Cited Publications" -->` | Deletes that entire `<section>` and splices nothing in its place. |
 | `<!-- CV-OVERLAY: before-section "Refereed Publications" -->` | Inserts immediately before that section. |
 | `<!-- CV-OVERLAY: after-section "Teaching" -->` | Inserts immediately after it. |
 | `<!-- CV-OVERLAY: replace-text "<div class="role">Some Job Title</div>" -->` | Substitutes the target string wherever it appears, using the fragment body (HTML comments stripped, remaining lines joined) as the replacement. |
@@ -83,30 +84,45 @@ Section targets match the literal `<h2>` text in `index.html`, so they must
 be HTML-escaped exactly as they appear there (`&amp;`, not `&`). Fragments
 apply in filename order — hence the `10-`/`20-`/`30-` prefixes.
 
-The first four ops splice in a whole `<section>`. `replace-text` is for
-changes too small to justify that — a job title, a single line of wording —
-and avoids duplicating a section that would then drift out of sync with
-`index.html`. Its target is matched literally (again HTML-escaped as written,
-`&ndash;` and all), **every** occurrence is replaced, and a target that
-matches nothing is a build error rather than a silent no-op. Since a bare
-phrase often appears more than once — job titles show up in the header
-subtitle as well as under Academic Appointments — wrap enough markup into the
-target to pin down the line you mean, e.g. the full
-`<div class="role">…</div>`. Copy the
-markup conventions from the surrounding sections in `index.html` (`entry` /
-`lbl` / `line` / `faint`, or `pubgroup` / `pub` / `pubtitle`) so the print
-styles apply unchanged.
+Four of those ops splice in a whole `<section>` and `remove-section` takes
+one away; its fragment is therefore all comment and no markup — the
+directive line, plus a note on why the section is dropped. Since the body is
+never used, markup left outside the comments aborts the build instead of
+vanishing silently. `replace-text` is for changes too small to justify that
+— a job title, a single line of wording — and avoids duplicating a section
+that would then drift out of sync with `index.html`. Its target is matched
+literally (again HTML-escaped as written, `&ndash;` and all), **every**
+occurrence is replaced, and a target that matches nothing is a build error
+rather than a silent no-op. Since a bare phrase often appears more than once
+— job titles show up in the header subtitle as well as under Academic
+Appointments — wrap enough markup into the target to pin down the line you
+mean, e.g. the full `<div class="role">…</div>`. Copy the markup conventions
+from the surrounding sections in `index.html` (`entry` / `lbl` / `line` /
+`faint`, or `pubgroup` / `pub` / `pubtitle`) so the print styles apply
+unchanged.
 
 The existing `variants/promotion/` set is a working example:
 
 ```
 variants/promotion/
-  10-funding.html      at-marker FUNDING_SECTION
-  20-in-prep.html      before-section "Refereed Publications"
-  30-mentoring.html    replace-section "Advising & Mentoring"
+  10-funding.html      -> ../../funding.html   at-marker FUNDING_SECTION
+  20-in-prep.html                              before-section "Refereed Publications"
+  30-mentoring.html                            replace-section "Advising & Mentoring"
+  40-no-most-cited.html                        remove-section "Most Cited Publications"
 ```
 
-Two things worth knowing before adding to it:
+Note that `10-funding.html` is a **symlink** to the top-level
+`funding.html`, not a copy. `funding.html` is the single source of truth for
+the grant list: add a grant there once and both `--funding` and
+`--variant promotion` pick it up. Any future variant that wants a Funding
+section should symlink to it the same way — the glob, the `{{TOTAL}}` sum
+and the splice all follow symlinks, so nothing else has to change:
+
+```sh
+ln -s ../../funding.html variants/<name>/10-funding.html
+```
+
+Three things worth knowing before adding to it:
 
 - **Submitted / in-prep papers must be their own section.**
   `update_bibliography.py` deletes and rewrites everything between the
@@ -117,10 +133,22 @@ Two things worth knowing before adding to it:
 - **A fragment containing `{{TOTAL}}`** gets it replaced at build time by the
   sum of every `$N` amount on that fragment's own `class="sub"` lines — used
   by the Funding summary line.
+- **Don't copy a fragment between variants.** Symlink it, as
+  `10-funding.html` does. Two copies of the same material drift apart the
+  first time only one of them is updated.
+- **The promotion PDF drops "Most Cited Publications"** (`40-no-most-cited.html`).
+  It already carries the complete numbered publication list, so the
+  five-paper highlight reel near the top is redundant there. The public CV,
+  and every other variant, keep the section — and `update_bibliography.py`
+  still regenerates it in `index.html` on the weekly sync, which is exactly
+  why removing it has to happen at build time rather than by hand.
 
-`./make-pdf.sh --funding` is kept as a legacy alias: it splices the
-gitignored top-level `funding.html` at the `FUNDING_SECTION` marker and
-writes `teagueCV-funding.pdf`, exactly as before.
+`./make-pdf.sh --funding` is kept as a legacy alias: it splices
+`funding.html` at the `FUNDING_SECTION` marker and writes
+`teagueCV-funding.pdf`, exactly as before. That file now carries its own
+`<!-- CV-OVERLAY: at-marker FUNDING_SECTION -->` directive line, which is
+what lets variants symlink to it; the legacy path ignores the directive and
+splices the file whole, and the comment renders nothing either way.
 
 ## Refreshing the bibliography
 
