@@ -18,9 +18,12 @@ jobs:
   build-pdf:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: browser-actions/setup-chrome@v1
+      # v2 installs Chrome for Testing and defaults to the *stable* channel
+      # (v1 defaulted to latest); make-pdf.sh only needs a Chrome that can
+      # --print-to-pdf, so stable is if anything the steadier choice.
+      - uses: browser-actions/setup-chrome@v2
         id: setup-chrome
 
       - name: Regenerate PDF

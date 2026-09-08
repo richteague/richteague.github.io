@@ -41,9 +41,9 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.x'
 
@@ -54,7 +54,10 @@ jobs:
           ADS_API_TOKEN: ${{ secrets.ADS_API_TOKEN }}
         run: python3 update_bibliography.py
 
-      - uses: browser-actions/setup-chrome@v1
+      # v2 installs Chrome for Testing and defaults to the *stable* channel
+      # (v1 defaulted to latest); make-pdf.sh only needs a Chrome that can
+      # --print-to-pdf, so stable is if anything the steadier choice.
+      - uses: browser-actions/setup-chrome@v2
         id: setup-chrome
 
       - name: Regenerate PDF
@@ -64,7 +67,7 @@ jobs:
 
       - name: Open pull request
         id: cpr
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "Refresh publications & citation counts from ADS"
           title: "Automated bibliography refresh"
