@@ -180,7 +180,10 @@ Two GitHub Actions workflows:
 
 - **`build-pdf.yml`** — on every push to `main` that touches `index.html`,
   `fonts/`, or `make-pdf.sh`, rebuilds `teagueCV.pdf` and commits it if it
-  changed. Keeps the PDF from ever drifting out of sync with the HTML.
+  changed. Keeps the PDF from ever drifting out of sync with the HTML. Skips
+  itself when the same push also touches `update_bibliography.py`: that fires
+  `update-bibliography.yml`, which rebuilds the PDF in its own PR, and building
+  it in both places makes that PR's auto-merge fail on a `teagueCV.pdf` conflict.
 - **`update-bibliography.yml`** — runs `update_bibliography.py` every Monday
   (or on demand via `workflow_dispatch`), rebuilds `teagueCV.pdf` to match, and
   opens a PR with both — then **merges it automatically**, so new papers and

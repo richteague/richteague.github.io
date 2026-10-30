@@ -20,18 +20,36 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # A push that also touches update_bibliography.py fires update-bibliography.yml,
+      # which rebuilds the PDF inside its own PR. Building it here too races that PR:
+      # whichever commits teagueCV.pdf second hits a binary merge conflict and the
+      # bibliography auto-merge fails. So defer to that workflow in that case.
+      - name: Skip if update-bibliography.yml will rebuild the PDF
+        id: check
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          git fetch --quiet --depth=1 origin "$BEFORE"
+          if git diff --name-only "$BEFORE" HEAD | grep -qx update_bibliography.py; then
+            echo "update_bibliography.py changed; leaving the PDF to update-bibliography.yml"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       # v2 installs Chrome for Testing and defaults to the *stable* channel
       # (v1 defaulted to latest); make-pdf.sh only needs a Chrome that can
       # --print-to-pdf, so stable is if anything the steadier choice.
       - uses: browser-actions/setup-chrome@v2
+        if: steps.check.outputs.skip != 'true'
         id: setup-chrome
 
       - name: Regenerate PDF
+        if: steps.check.outputs.skip != 'true'
         env:
           CHROME: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: ./make-pdf.sh
 
       - name: Commit PDF if it changed
+        if: steps.check.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
