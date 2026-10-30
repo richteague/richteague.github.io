@@ -5,7 +5,7 @@ index.html from a NASA/ADS public library.
 
 Requires:
     pip install requests
-    export ADS_API_TOKEN=...   (get one at https://ui.adsabs.harvard.edu/user/settings/token)
+    export ADS_API_TOKEN=...   (get one at https://scixplorer.org/user/settings/token)
 
 Usage:
     python3 update_bibliography.py
@@ -48,8 +48,8 @@ Notes / known limitations (check the diff before committing):
     conference proceedings with unusual ADS metadata may need a manual tweak.
   - Ordering: newest first by ADS pubdate, grouped by year, numbered from the
     total count down to 1 (matching the existing numbering scheme).
-  - Each title links to its ADS abstract page
-    (https://ui.adsabs.harvard.edu/abs/<bibcode>/abstract).
+  - Each title links to its SciX abstract page
+    (https://scixplorer.org/abs/<bibcode>/abstract).
 """
 import argparse
 import datetime
@@ -64,8 +64,8 @@ try:
 except ImportError:
     sys.exit("This script needs the 'requests' package: pip install requests")
 
-ADS_API = "https://api.adsabs.harvard.edu/v1"
-DEFAULT_LIBRARY_ID = "uxd2UZZ5QSGSqcI7i3llMQ"  # https://ui.adsabs.harvard.edu/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ
+ADS_API = "https://api.adsabs.harvard.edu/v1"  # unchanged by the SciX website move; no SciX API host yet
+DEFAULT_LIBRARY_ID = "uxd2UZZ5QSGSqcI7i3llMQ"  # https://scixplorer.org/public-libraries/uxd2UZZ5QSGSqcI7i3llMQ
 SELF_SURNAME = "teague"
 FIELDS = "bibcode,title,author,year,pub,volume,page,identifier,pubdate,doctype,citation_count"
 CHUNK_SIZE = 50
@@ -113,7 +113,7 @@ def get_token():
     if not token:
         die(
             "ADS_API_TOKEN is not set.\n"
-            "  1. Get a token at https://ui.adsabs.harvard.edu/user/settings/token\n"
+            "  1. Get a token at https://scixplorer.org/user/settings/token\n"
             "  2. export ADS_API_TOKEN=your_token_here"
         )
     return token
@@ -177,7 +177,7 @@ def normalize_title(title):
 
 
 def ads_abstract_url(bibcode):
-    url = f"https://ui.adsabs.harvard.edu/abs/{bibcode}/abstract"
+    url = f"https://scixplorer.org/abs/{bibcode}/abstract"
     return url.replace("&", "%26")
 
 

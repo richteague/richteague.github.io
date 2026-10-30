@@ -153,7 +153,7 @@ splices the file whole, and the comment renders nothing either way.
 ## Refreshing the bibliography
 
 ```sh
-export ADS_API_TOKEN=...   # https://ui.adsabs.harvard.edu/user/settings/token
+export ADS_API_TOKEN=...   # https://scixplorer.org/user/settings/token
 pip install requests
 python3 update_bibliography.py --dry-run   # sanity-check the output first
 python3 update_bibliography.py             # writes index.html, backs up to index.html.bak

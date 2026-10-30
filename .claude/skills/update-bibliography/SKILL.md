@@ -17,7 +17,7 @@ switches it to rank across co-authored papers too.
 ## Steps
 
 1. Confirm `ADS_API_TOKEN` is set in the environment. If not, tell the user to
-   get one at https://ui.adsabs.harvard.edu/user/settings/token and
+   get one at https://scixplorer.org/user/settings/token and
    `export ADS_API_TOKEN=...` before continuing.
 2. Run a dry run first so the user can sanity-check the output before it
    touches the file:
@@ -58,8 +58,8 @@ switches it to rank across co-authored papers too.
 - Authors are always normalized to "Surname, A., B." even when ADS returns a
   name as "A. B. Surname" (no comma) — `format_author()` detects the
   comma-less case and reorders it.
-- Each paper title links out to its ADS abstract page
-  (`https://ui.adsabs.harvard.edu/abs/<bibcode>/abstract`).
+- Each paper title links out to its SciX abstract page
+  (`https://scixplorer.org/abs/<bibcode>/abstract`).
 - First-authored papers led by a current/former Planet Formation Lab member
   get a superscript &dagger;/&Dagger;/&sect; tag (undergrad/grad/postdoc) —
   see `PFL_ROSTER` near the top of `update_bibliography.py`. When the
